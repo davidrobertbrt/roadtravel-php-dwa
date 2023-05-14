@@ -5,7 +5,7 @@ require_once '../app/model/Credential.php';
 class CredentialRepository
 {
     // prevent construct of utility class
-    private function __construct() {}
+    public function __construct() {}
 
     public static function getTableName()
     {

@@ -2,9 +2,11 @@
 class LoginFormMiddleware implements Middleware{
     public function __invoke($data)
     {
+        $formData = $data->getData();
+
         $errors = array();
 
-        if(!filter_var($data['POST']['inputEmail'],FILTER_VALIDATE_EMAIL))
+        if(!filter_var($formData['email'],FILTER_VALIDATE_EMAIL))
             array_push($errors,'Email is not valid');
     
         if(count($errors) > 0)

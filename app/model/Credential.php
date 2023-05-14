@@ -10,7 +10,7 @@ class Credential
 
     public static function loadByParams($id,$userId,$password)
     {
-        $inst = new User();
+        $inst = new Credential();
         $inst->id = $id;
         $inst->userId = $userId;
         $inst->password = $password;

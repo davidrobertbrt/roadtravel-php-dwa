@@ -4,8 +4,7 @@ require_once '../app/model/User.php';
 
 class UserRepository
 {
-    // prevent construct of utility class
-    private function __construct() {}
+    public function __construct() {}
 
     public static function getTableName()
     {

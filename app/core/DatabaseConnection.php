@@ -10,7 +10,7 @@ final class DatabaseConnection
 
     public static function getConnection()
     {
-        if(!isset($dbConnection))
+        if(!isset(self::$dbConnection))
         {
             $db_host = DbConfig::$DB_HOST;
             $db_name = DbConfig::$DB_NAME;
@@ -23,7 +23,7 @@ final class DatabaseConnection
             }
         }
 
-        return $dbConnection;
+        return self::$dbConnection;
     }
 
     public static function closeConnection()
