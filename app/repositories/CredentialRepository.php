@@ -12,7 +12,7 @@ class CredentialRepository
         return "credentials";
     }
 
-    public static function readById($id)
+    public function readById($id)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -33,7 +33,7 @@ class CredentialRepository
         );
     }
 
-    public static function readByUserId($userId)
+    public function readByUserId($userId)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -56,7 +56,7 @@ class CredentialRepository
     }
 
 
-    public static function create($credential)
+    public function create($credential)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -76,7 +76,7 @@ class CredentialRepository
         return $conn->lastInsertedId();
     }
 
-    public static function updateById($credential)
+    public function updateById($credential)
     {
         if($user->getId() === null)
             return null;
@@ -96,7 +96,7 @@ class CredentialRepository
         return $stmt->execute($values);
     }
 
-    public static function delete($credential)
+    public function delete($credential)
     {
         $id = $credential->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WEHERE id = :id");

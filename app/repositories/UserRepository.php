@@ -12,7 +12,7 @@ class UserRepository
         return "users";
     }
 
-    public static function readById($id)
+    public function readById($id)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -35,7 +35,7 @@ class UserRepository
         );
     }
 
-    public static function readByEmail($emailAddress)
+    public function readByEmail($emailAddress)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -60,7 +60,7 @@ class UserRepository
     }
 
 
-    public static function create($user)
+    public function create($user)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -80,7 +80,7 @@ class UserRepository
         return $conn->lastInsertedId();
     }
 
-    public static function updateById($user)
+    public function updateById($user)
     {
         if($user->getId() === null)
             return null;
@@ -100,7 +100,7 @@ class UserRepository
         return $stmt->execute($values);
     }
 
-    public static function delete($user)
+    public function delete($user)
     {
         $id = $user->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WEHERE id = :id");

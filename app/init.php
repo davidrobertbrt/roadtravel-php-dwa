@@ -16,6 +16,13 @@ require_once 'core/Cookie.php';
  */
 require_once 'core/EmailSender.php';
 
+/**
+ * Repositories
+ */
+
+require_once 'repositories/CredentialRepository.php';
+require_once 'repositories/UserRepository.php';
+
 // debug statements
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

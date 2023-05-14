@@ -10,10 +10,15 @@
 return array(
     'GET' => array(
         // This is the default handler for / URL
-        '@' => array('controller' => 'ExampleController','action'=>'index'),
-        'example@index' => array('controller' => 'ExampleController','action'=>'index')
+        '@' => array('controller' => 'HomeController','action'=>'index'),
+        'example@index' => array('controller' => 'ExampleController','action'=>'index'),
+        'login@index' => array('controller' => 'LoginController','action'=>'index'),
+        'logout@process' => array('controller'=>'LogoutController','action'=>'process'),
+        'register@index' => array('controller' => 'RegisterController','action'=>'index'),
+        'home@index' => array('controller'=>'HomeController','action'=>'index')
     ),
     'POST' => array(
-        
+        'login@process' => array('controller'=>'LoginController','action'=>'process'),
+        'register@process' => array('controller'=>'RegisterController','action'=>'process')
     ),
 );
