@@ -1,0 +1,12 @@
+#Rules to control the behaviour of the web server
+Options -MultiViews
+RewriteEngine On
+
+RewriteBase /aerialtravel/public
+
+# If the request is not a directory and not a file,
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Rewrite the URL to index.php and pass the requested url to the routing class
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
