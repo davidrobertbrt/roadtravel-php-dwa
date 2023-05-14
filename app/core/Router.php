@@ -45,26 +45,29 @@ final class Router{
             exit();
         }
 
-        foreach($middlewares as $middlewareName)
+        if(isset($middlewares))
         {
-            $middlewareFilename = '../app/middlewares/' . $middlewareName . '.php';
-
-            if (!file_exists($middlewareFilename)) 
+            foreach($middlewares as $middlewareName)
             {
-                $response = new Response("Middleware not found: $middlewareFilename",500);
-                $response->send();
-                exit();
-            }
+                $middlewareFilename = '../app/middlewares/' . $middlewareName . '.php';
 
-            require_once $middlewareFilename;
+                if (!file_exists($middlewareFilename)) 
+                {
+                    $response = new Response("Middleware not found: $middlewareFilename",500);
+                    $response->send();
+                    exit();
+                }
 
-            $middleware = new $middlewareName;
-            $request = $middleware($request);
-            // check if middleware returned a response
-            if($data instanceof Response)
-            {
-                $data->send();
-                exit();
+                require_once $middlewareFilename;
+
+                $middleware = new $middlewareName;
+                $request = $middleware($request);
+                // check if middleware returned a response
+                if($data instanceof Response)
+                {
+                    $data->send();
+                    exit();
+                }
             }
         }
 

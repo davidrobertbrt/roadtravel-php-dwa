@@ -11,6 +11,7 @@ return array(
     'GET' => array(
         // This is the default handler for / URL
         '@' => array('controller' => 'ExampleController','action'=>'index'),
+        'example@index' => array('controller' => 'ExampleController','action'=>'index')
     ),
     'POST' => array(
         
