@@ -2,7 +2,7 @@
 Options -MultiViews
 RewriteEngine On
 
-RewriteBase /aerialtravel/public
+RewriteBase /roadtravel/public
 
 # If the request is not a directory and not a file,
 RewriteCond %{REQUEST_FILENAME} !-d
