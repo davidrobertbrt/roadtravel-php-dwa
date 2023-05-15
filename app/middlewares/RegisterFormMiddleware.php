@@ -53,7 +53,7 @@ class RegisterFormMiddleware implements Middleware{
             if(ctype_digit($formData['password'][$i]))
                 $hasPwdNumber = true;
 
-            if($hasPwdUpperCase === true && $hasPwdNumber === true)
+            if($hasPwdUppercase === true && $hasPwdNumber === true)
                 break;
         }
 
