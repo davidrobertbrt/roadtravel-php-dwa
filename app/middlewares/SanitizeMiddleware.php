@@ -23,7 +23,7 @@ class SanitizeMiddleware implements Middleware
             }
 
             $formValue = stripslashes($formValue);
-            $formValue = filter_var($formValue,FILTER_SANITIZE_STRING);
+            $formValue = filter_var($formValue, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $formData[$formKey] = $formValue;
         }
