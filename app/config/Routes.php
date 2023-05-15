@@ -20,6 +20,7 @@ return array(
     ),
     'POST' => array(
         'login@process' => array('controller'=>'LoginController','action'=>'process'),
-        'register@process' => array('controller'=>'RegisterController','action'=>'process')
+        'register@process' => array('controller'=>'RegisterController','action'=>'process'),
+        'contact@process' => array('controller'=>'ContactController','action'=>'process')
     ),
 );

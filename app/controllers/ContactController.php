@@ -16,11 +16,6 @@ class ContactController extends Controller
         $subject = $formData['subject'] ?? '';
         $message = $formData['message'] ?? '';
 
-        if (empty($name) ||  empty($subject) || empty($message)) {
-            $response = new Response('Please fill in all fields.',403);
-            $response->send();
-        }
-
         $body = <<<EOT
         <h2>AerialTravel</h2>
         <h2>Un nou mesaj a fost primit:</h2>
@@ -32,6 +27,7 @@ class ContactController extends Controller
 
         $emailSender->send(Secrets::$EMAIL_WHERETO, "Mesaj nou:{$subject}", $body, Secrets::$EMAIL_USERNAME, $name);
 
-        $this->render('ContactSuccess');
+        $response = new Response('Message sent!',200);
+        $response->send();
     }
 }
