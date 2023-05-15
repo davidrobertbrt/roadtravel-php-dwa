@@ -21,7 +21,7 @@
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Contact Form</h5>
-                        <form>
+                        <form action = "./../contact/process" method="POST">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter your name" required>

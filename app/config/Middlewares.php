@@ -22,4 +22,10 @@ return array(
     'home@index' => array(
         'AuthMiddleware'
     ),
+    'contact@index' => array(
+        'AuthMiddleware'
+    ),
+    'contact@process'=>array(
+        'AuthMiddleware','SanitizeMiddleware'
+    )
 );
