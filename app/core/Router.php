@@ -63,9 +63,9 @@ final class Router{
                 $middleware = new $middlewareName;
                 $request = $middleware($request);
                 // check if middleware returned a response
-                if($data instanceof Response)
+                if($request instanceof Response)
                 {
-                    $data->send();
+                    $request->send();
                     exit();
                 }
             }
