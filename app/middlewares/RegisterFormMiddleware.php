@@ -64,8 +64,8 @@ class RegisterFormMiddleware implements Middleware{
 
         if(count($errors) > 0)
             $req = new Response(implode("<br>",$errors),403);
-
-        $req->setData($formData);
+        else
+            $req->setData($formData);
     
         return $req;
     }
