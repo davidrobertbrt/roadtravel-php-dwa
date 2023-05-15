@@ -65,7 +65,7 @@ class UserRepository
         $table = self::getTableName();
     
         $properties = $user->toArray();
-        $values = array_values($user->toArray());
+        $values = array_values($properties);
     
         $checkUser = $this->readByEmail($properties['emailAddress']);
     
