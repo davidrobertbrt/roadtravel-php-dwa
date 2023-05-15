@@ -18,6 +18,20 @@ class User{
         $inst->id = $id;
         $inst->emailAddress = $emailAddress;
         $inst->firstName = $firstName;
+        $inst->dateOfBirth = $dateOfBirth;
+        $inst->lastName = $lastName;
+        $inst->phoneNumber = $phoneNumber;
+        $inst->address = $address;
+
+        return $inst;
+    }
+
+    public static function constructNoId($emailAddress,$firstName,$lastName,$dateOfBirth,$phoneNumber,$address)
+    {
+        $inst = new User();
+        $inst->emailAddress = $emailAddress;
+        $inst->firstName = $firstName;
+        $inst->dateOfBirth = $dateOfBirth;
         $inst->lastName = $lastName;
         $inst->phoneNumber = $phoneNumber;
         $inst->address = $address;
