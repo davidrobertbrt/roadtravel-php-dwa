@@ -9,19 +9,21 @@ class SanitizeMiddleware implements Middleware
 
         $formData = $req->getData();
 
-        if(!isset($formData))
+        if(!isset($formData) || empty($formData))
         {
-            $req = new Request("Form is empty.",403);
+            $req = new Response("Form is empty.",403);
             return $req;
         }
+
 
         foreach($formData as $formKey => $formValue)
         {
             $formValue = trim($formValue);
 
+            
             if(empty($formValue))
             {
-                $req = new Request("Form is empty.",403);
+                $req = new Response("Form is empty.",403);
                 return $req;          
             }
 
