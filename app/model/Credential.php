@@ -75,8 +75,8 @@ class Credential
     public function toArray()
     {
         return array(
-            'userId' => $userId,
-            'password' => $password
+            'userId' => $this->userId,
+            'password' => $this->password
         );
     }
 }

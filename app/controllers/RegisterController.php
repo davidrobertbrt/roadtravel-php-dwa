@@ -31,7 +31,7 @@ class RegisterController extends Controller
 
         // date of birth conversion in middleware
 
-        $user = User::constructNoId($formData['email'],$formData['firstName'],$formData['lastName'],$formData['dateOfBirth'],$formData['lastName'],$formData['phoneNumber'],$formData['address']);
+        $user = User::constructNoId($formData['emailAddress'],$formData['firstName'],$formData['lastName'],$formData['dateOfBirth'],$formData['lastName'],$formData['phoneNumber'],$formData['address']);
         $idInsertUser = $this->userRepo->create($user);
         $user->setId($idInsertUser);
         

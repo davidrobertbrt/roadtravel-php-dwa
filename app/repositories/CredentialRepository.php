@@ -61,19 +61,20 @@ class CredentialRepository
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
 
+        $properties = $credential->toArray();
         $values = array_values($credential->toArray());
 
-        $checkUser = (readByUserId($values['userId'])) ? true : false;
+        $checkUser = ($this->readByUserId($properties['userId'])) ? true : false;
 
         if($checkUser === true)
             return null;
 
-        $placeholders = array_fill(0,count($data),'?');
+        $placeholders = implode(',', array_fill(0, count($values), '?'));
 
-        $stmt = $conn->prepare("INSERT INTO {$table} (id,userId,password) VALUES({$placeholders})");
+        $stmt = $conn->prepare("INSERT INTO {$table} (userId,password) VALUES({$placeholders})");
         $stmt->execute($values);
 
-        return $conn->lastInsertedId();
+        return $conn->lastInsertId();
     }
 
     public function updateById($credential)

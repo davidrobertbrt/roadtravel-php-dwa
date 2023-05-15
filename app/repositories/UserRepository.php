@@ -63,21 +63,24 @@ class UserRepository
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
-
+    
+        $properties = $user->toArray();
         $values = array_values($user->toArray());
-
-        $checkUser = (readByEmail($values['emailAddress'])) ? true : false;
-
-        if($checkUser === true)
+    
+        $checkUser = $this->readByEmail($properties['emailAddress']);
+    
+        if ($checkUser !== null) {
             return null;
-
-        $placeholders = array_fill(0,count($data),'?');
-
-        $stmt = $conn->prepare("INSERT INTO {$table} (emailAddress,firstName,lastName,dateOfBirth,phoneNumber,address) VALUES({$placeholders})");
+        }
+    
+        $placeholders = implode(',', array_fill(0, count($values), '?'));
+    
+        $stmt = $conn->prepare("INSERT INTO {$table} (firstName, lastName, dateOfBirth, phoneNumber, address, emailAddress) VALUES ({$placeholders})");
         $stmt->execute($values);
-
-        return $conn->lastInsertedId();
+    
+        return $conn->lastInsertId();
     }
+    
 
     public function updateById($user)
     {
