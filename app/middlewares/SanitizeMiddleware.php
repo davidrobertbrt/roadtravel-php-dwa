@@ -4,6 +4,9 @@ class SanitizeMiddleware implements Middleware
 {
     public function __invoke($req)
     {
+        if($req->getMethod() !== 'POST')
+            return $req;
+
         $formData = $req->getData();
 
         if(!isset($formData))
@@ -30,7 +33,7 @@ class SanitizeMiddleware implements Middleware
 
         $req->setData($formData);
 
-        return $req;  
+        return $req;
     }
     
 }
