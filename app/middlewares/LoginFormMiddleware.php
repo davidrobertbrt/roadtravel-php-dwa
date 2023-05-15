@@ -1,8 +1,8 @@
 <?php
 class LoginFormMiddleware implements Middleware{
-    public function __invoke($data)
+    public function __invoke($req)
     {
-        $formData = $data->getData();
+        $formData = $req->getData();
 
         $errors = array();
 
@@ -10,8 +10,8 @@ class LoginFormMiddleware implements Middleware{
             array_push($errors,'Email is not valid');
     
         if(count($errors) > 0)
-            $data = new Response(implode("|",$errors),403);
+            $req = new Response(implode("<br>",$errors),403);
         
-        return $data;
+        return $req;
     }
 }

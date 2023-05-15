@@ -2,7 +2,7 @@
 
 class AuthMiddleware implements Middleware
 {
-    public function __invoke($data){
+    public function __invoke($req){
 
         if(!isset($_SESSION['user']))
         {
@@ -12,6 +12,6 @@ class AuthMiddleware implements Middleware
         }
 
         // User is authentificated, return the request to pass it to the controller.
-        return $data;
+        return $req;
     }
 }

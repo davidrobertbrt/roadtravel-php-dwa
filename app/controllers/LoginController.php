@@ -19,9 +19,6 @@ class LoginController extends Controller
 
     public function process()
     {
-        var_dump($this->userRepo);
-        var_dump($this->credentialRepo);
-
         $data = $this->request->getData();
         $user = $this->userRepo->readByEmail($data['email']);
 

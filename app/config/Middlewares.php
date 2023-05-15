@@ -8,7 +8,7 @@ return array(
         'LoginMiddleware'
     ),
     'login@process'=>array(
-        'LoginMiddleware','LoginFormMiddleware'
+        'LoginMiddleware','SanitizeMiddleware','LoginFormMiddleware'
     ),
     'logout@process'=>array(
         'AuthMiddleware'
@@ -17,7 +17,7 @@ return array(
         'LoginMiddleware'
     ),
     'register@process'=>array(
-        'LoginMiddleware',
+        'LoginMiddleware','SanitizeMiddleware','RegisterFormMiddleware'
     ),
     'home@index' => array(
         'AuthMiddleware'
