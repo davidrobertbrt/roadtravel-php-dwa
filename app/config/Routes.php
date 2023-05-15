@@ -15,7 +15,8 @@ return array(
         'login@index' => array('controller' => 'LoginController','action'=>'index'),
         'logout@process' => array('controller'=>'LogoutController','action'=>'process'),
         'register@index' => array('controller' => 'RegisterController','action'=>'index'),
-        'home@index' => array('controller'=>'HomeController','action'=>'index')
+        'home@index' => array('controller'=>'HomeController','action'=>'index'),
+        'contact@index' => array('controller'=>'ContactController','action'=>'index')
     ),
     'POST' => array(
         'login@process' => array('controller'=>'LoginController','action'=>'process'),
