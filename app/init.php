@@ -10,6 +10,8 @@ require_once 'core/Controller.php';
 require_once 'core/Middleware.php';
 require_once 'core/DatabaseConnection.php';
 require_once 'core/Cookie.php';
+require_once 'core/GeolocationApi.php';
+require_once 'core/WeatherApi.php';
 
 /**
  * Not inclunded in mvc_project_mds
@@ -22,6 +24,7 @@ require_once 'core/EmailSender.php';
 
 require_once 'repositories/CredentialRepository.php';
 require_once 'repositories/UserRepository.php';
+require_once 'repositories/LocationRepository.php';
 
 // debug statements
 ini_set('display_errors', 1);

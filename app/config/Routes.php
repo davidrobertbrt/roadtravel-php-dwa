@@ -16,11 +16,16 @@ return array(
         'logout@process' => array('controller'=>'LogoutController','action'=>'process'),
         'register@index' => array('controller' => 'RegisterController','action'=>'index'),
         'home@index' => array('controller'=>'HomeController','action'=>'index'),
-        'contact@index' => array('controller'=>'ContactController','action'=>'index')
+        'contact@index' => array('controller'=>'ContactController','action'=>'index'),
+        'location@index' => array('controller'=>'LocationController','action'=>'index')
     ),
     'POST' => array(
         'login@process' => array('controller'=>'LoginController','action'=>'process'),
         'register@process' => array('controller'=>'RegisterController','action'=>'process'),
-        'contact@process' => array('controller'=>'ContactController','action'=>'process')
+        'contact@process' => array('controller'=>'ContactController','action'=>'process'),
+        'location@create' => array('controller'=>'LocationController','action'=>'create'),
+        'location@delete' => array('controller'=>'LocationController','action'=>'delete'),
+        'location@edit' => array('controller'=>'LocationController','action'=>'edit'),
+        'location@process' => array('controller'=>'LocationController','action'=>'process')
     ),
 );

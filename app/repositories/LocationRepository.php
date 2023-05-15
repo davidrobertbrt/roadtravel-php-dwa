@@ -35,6 +35,8 @@ class LocationRepository{
         $stmt = $conn->prepare("SELECT * FROM {$table} WEHERE name = :name");
         $stmt->bindParam(':name',$name,PDO::PARAM_STR);
 
+        $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null; 
+
         if(!is_array($resultDb))
             return null;
 
@@ -107,8 +109,10 @@ class LocationRepository{
 
     public function delete($location)
     {
+        $conn = DatabaseConnection::getConnection();
+        $table = self::getTableName();
         $id = $location->getId();
-        $stmt = $conn->prepare("DELETE FROM {$table} WEHERE id = :id");
+        $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
         return $stmt->execute();
     }
