@@ -42,7 +42,7 @@ class RegisterFormMiddleware implements Middleware{
         $hasPwdNumber = false;
         $hasMinLength = false;
 
-        if(strlen($formData['password']) < 8)
+        if(strlen($formData['password']) >= 8)
             $hasMinLength = true;
 
         for($i = 0; $i<strlen($formData['password']); $i++)
@@ -57,6 +57,9 @@ class RegisterFormMiddleware implements Middleware{
                 break;
         }
 
+        var_dump($hasPwdNumber);
+        var_dump($hasPwdUppercase);
+        var_dump($hasMinLength);
         if(!$hasPwdUppercase || !$hasPwdNumber || !$hasMinLength)
             $errors[] = 'Password is not in correct format';
         else
