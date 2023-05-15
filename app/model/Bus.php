@@ -46,4 +46,11 @@ class Bus
 
         return $this;
     }
+
+    public function toArray()
+    {
+        return array(
+            'nrSeats' => $nrSeats
+        );
+    }
 }
