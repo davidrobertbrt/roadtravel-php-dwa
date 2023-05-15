@@ -100,7 +100,7 @@ class CredentialRepository
     public function delete($credential)
     {
         $id = $credential->getId();
-        $stmt = $conn->prepare("DELETE FROM {$table} WEHERE id = :id");
+        $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
         return $stmt->execute();
     }
