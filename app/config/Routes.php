@@ -27,6 +27,10 @@ return array(
         'location@create' => array('controller'=>'LocationController','action'=>'create'),
         'location@delete' => array('controller'=>'LocationController','action'=>'delete'),
         'location@edit' => array('controller'=>'LocationController','action'=>'edit'),
-        'location@process' => array('controller'=>'LocationController','action'=>'process')
+        'location@process' => array('controller'=>'LocationController','action'=>'process'),
+        'bus@create' => array('controller'=>'BusController','action'=>'create'),
+        'bus@edit' => array('controller'=>'BusController','action'=>'edit'),
+        'bus@process' => array('controller'=>'BusController','action'=>'process'),
+        'bus@delete' => array('controller'=>'BusController','action'=>'delete')
     ),
 );
