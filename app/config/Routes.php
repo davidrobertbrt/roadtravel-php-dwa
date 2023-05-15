@@ -18,7 +18,8 @@ return array(
         'home@index' => array('controller'=>'HomeController','action'=>'index'),
         'contact@index' => array('controller'=>'ContactController','action'=>'index'),
         'location@index' => array('controller'=>'LocationController','action'=>'index'),
-        'bus@index' => array('controller'=>'BusController','action'=>'index')
+        'bus@index' => array('controller'=>'BusController','action'=>'index'),
+        'trip@index' => array('controller'=>'TripController','action'=>'index')
     ),
     'POST' => array(
         'login@process' => array('controller'=>'LoginController','action'=>'process'),
@@ -31,6 +32,10 @@ return array(
         'bus@create' => array('controller'=>'BusController','action'=>'create'),
         'bus@edit' => array('controller'=>'BusController','action'=>'edit'),
         'bus@process' => array('controller'=>'BusController','action'=>'process'),
-        'bus@delete' => array('controller'=>'BusController','action'=>'delete')
+        'bus@delete' => array('controller'=>'BusController','action'=>'delete'),
+        'trip@create' => array('controller'=>'TripController','action'=>'create'),
+        'trip@edit' => array('controller'=>'TripController','action'=>'edit'),
+        'trip@process'=>array('controller'=>'TripController','action'=>'process'),
+        'trip@delete'=>array('controller'=>'TripController','action'=>'delete')
     ),
 );
