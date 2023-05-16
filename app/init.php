@@ -26,6 +26,7 @@ require_once 'repositories/CredentialRepository.php';
 require_once 'repositories/UserRepository.php';
 require_once 'repositories/LocationRepository.php';
 require_once 'repositories/BusRepository.php';
+require_once 'repositories/TripRepository.php';
 
 // debug statements
 ini_set('display_errors', 1);

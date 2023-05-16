@@ -58,7 +58,7 @@ class LocationRepository{
 
         foreach($resultDb as $result)
         {
-            $locationList[] = Location::loadByParams(
+            $locationList[$result['id']] = Location::loadByParams(
                 $result['id'],$result['name'],$result['longitude'],$result['latitude']
             );
         }

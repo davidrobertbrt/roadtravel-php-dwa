@@ -35,7 +35,7 @@ class BusRepository
 
         foreach($resultDb as $result)
         {
-            $busList[] = new Bus(
+            $busList[$result['id']] = new Bus(
                 $result['id'],$result['nrSeats']
             );
         }

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../core/model/Trip.php';
+require_once '../app/model/Trip.php';
 
 class TripRepository
 {

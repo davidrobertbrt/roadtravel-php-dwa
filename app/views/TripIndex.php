@@ -10,28 +10,45 @@
                     <div class="form-group">
                         <label for="departureSelect">Bus select:</label>
                         <select class="form-control" id="busSelect">
-                        <option>Bus 1</option>
-                        <option>Bus 2</option>
-                        <option>Bus 3</option>
+                        <!-- import from bus repository.-->
+                        <?php
+                            foreach($data['busRepo'] as $bus) {
+                                $id = $bus->getId();
+                                $nrSeats = $bus->getNrSeats();
+                                $optionUrl = "(Bus {$busId} | {$nrSeats})";
+                        ?>
+                            <option value = "<?php echo $id;?>"><?php echo $optionUrl; ?></option>
+                        <?php }?>
                         </select>
                     </div>
+                    <!-- import from location repository -->
                     <div class="form-group">
                         <label for="departureSelect">Departure:</label>
                         <select class="form-control" id="departureSelect">
-                        <option>Departure 1</option>
-                        <option>Departure 2</option>
-                        <option>Departure 3</option>
+                            <?php
+                                foreach($data['locationRepo'] as $location) {
+                                    $id = $location->getId();
+                                    $name = $location->getName();
+                            ?>
+                                <option value = "<?php echo $id;?>"><?php echo $name; ?></option>
+                            <?php }?> 
                         </select>
                     </div>
                     <div class="form-group">
+                        <!-- import from location repository -->
                         <label for="arrivalSelect">Arrival:</label>
                         <select class="form-control" id="arrivalSelect">
-                        <option>Arrival 1</option>
-                        <option>Arrival 2</option>
-                        <option>Arrival 3</option>
+                            <?php
+                                foreach($data['locationRepo'] as $location) {
+                                    $id = $location->getId();
+                                    $name = $location->getName();
+                            ?>
+                                <option value = "<?php echo $id;?>"><?php echo $name; ?></option>
+                            <?php }?> 
                         </select>
                     </div>
                     <div class="form-group">
+                        <!-- no import -->
                         <label for="dateTimeDeparture">Date/Time of Departure:</label>
                         <input type="datetime-local" class="form-control" id="dateTimeDeparture">
                     </div>
@@ -54,27 +71,43 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    <?php 
+                        if(empty($data['tripRepo'])) {
+                    ?>
                     <tbody>
+                        <?php
+                            foreach ($data['tripRepo'] as $trip) {
+                            $id = $trip->getId();
+                            $busId = $trip->getBusId();
+                            $departureId = $trip->getLocationStartId();
+                            $arrivalId = $trip->getLocationEndId();
+                            $dateTimeStart = $trip->getDateTimeStart();
+                            $dateTimeEnd = $trip->getDateTimeEnd();
+                        ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $id; ?></td>
+                            <td><?php echo $busId; ?></td>
+                            <td><?php echo $data['locationRepo'][$departureId]; ?></td>
+                            <td><?php echo $data['locationRepo'][$arrivalId];?></td>
+                            <td><?php echo $dateTimeStart; ?></td>
+                            <td><?php echo $dateTimeEnd; ?></td>
                             <td>
                             <form action="delete" method="POST" class="inline-form">
-                                <input type="hidden" name="id" value="">
+                                <input type="hidden" name="id" value="<?php echo $id;?>">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                             <form action="edit" method="POST" class="inline-form">
-                                <input type="hidden" name="id" value="">
+                                <input type="hidden" name="id" value="<?php echo $id;?>">
                                 <!-- Include other fields for editing -->
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
                             </td>
                         </tr>
+                        <?php 
+                            }
+                        ?>
                     </tbody>
+                <?php } ?>
                 </table>
         </div>
         <?php require_once('../app/components/footer.php');?>
