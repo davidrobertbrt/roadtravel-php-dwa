@@ -50,7 +50,7 @@ class Bus
     public function toArray()
     {
         return array(
-            'nrSeats' => $nrSeats
+            'nrSeats' => $this->nrSeats
         );
     }
 }

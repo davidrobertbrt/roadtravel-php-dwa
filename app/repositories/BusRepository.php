@@ -1,5 +1,7 @@
 <?php
 
+require_once '../app/model/Bus.php';
+
 class BusRepository
 {
     private function __construct() {}
@@ -13,7 +15,7 @@ class BusRepository
         $table = self::getTableName();
 
         $stmt = $conn->prepare("SELECT * FROM {$table} WHERE id = :id");
-        $stmt->bindParam(':id',$id,PDO::PARAN_INT);
+        $stmt->bindParam(':id',$id,PDO::PARAM_INT);
         $stmt->execute();
 
         $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
@@ -66,7 +68,7 @@ class BusRepository
         return true;
     }
 
-    public function update(&$bus)
+    public static function update(&$bus)
     {
         if(!isset($bus))
             return false;
@@ -95,7 +97,7 @@ class BusRepository
         return true;
     }
 
-    public function delete(&$bus)
+    public static function delete(&$bus)
     {
         if(!isset($bus))
             return false;

@@ -10,8 +10,8 @@ class BusController extends Controller
 
     public function create()
     {
-        $formData = $request->getData();
-        $nrSeats = $formData['nrSeats'];
+        $formData = $this->request->getData();
+        $nrSeats = intval($formData['nrSeats']);
 
         $bus = new Bus(null,$nrSeats);
         $checkInsert = BusRepository::create($bus);
@@ -19,12 +19,16 @@ class BusController extends Controller
         {
             $response = new Response("Failure at insertion",403);
             $response->send();
+            exit();
         }
+
+        $response = new Response("Bus added",200);
+        $response->send();
     }
 
     public function delete()
     {
-        $formData = $request->getData();
+        $formData = $this->request->getData();
         $id = $formData['id'];
         $bus = BusRepository::readById($id);
 
@@ -33,12 +37,16 @@ class BusController extends Controller
         {
             $response = new Response("Failure at delete",403);
             $response->send();
+            exit();
         }
+
+        $response = new Response("Bus deleted",200);
+        $response->send();
     }
 
     public function edit()
     {
-        $formData = $request->getData();
+        $formData = $this->request->getData();
         $id = $formData['id'];
 
         $bus = BusRepository::readById($id);
@@ -49,7 +57,7 @@ class BusController extends Controller
 
     public function process()
     {
-        $formData = $request->getData();
+        $formData = $this->request->getData();
         $id = $formData['id'];
         $nrSeats = $formData['nrSeats'];
 
@@ -62,6 +70,10 @@ class BusController extends Controller
         {
             $response = new Response("Failure at updating",403);
             $response->send();
+            exit();
         }
+
+        $response = new Response("Bus edited succesfully.",200);
+        $response->send();
     }
 }
