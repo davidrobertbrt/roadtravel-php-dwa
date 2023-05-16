@@ -3,7 +3,7 @@
 class Trip
 {
     private $id;
-    private $busId;
+    private $bus;
     private $locationStartId;
     private $locationEndId;
     private $dateTimeStart;
@@ -13,8 +13,8 @@ class Trip
     {
         $this->id = $id;
         $this->busId = $busId;
-        $this->locationStartId = $locationStartId;
-        $this->locationEndId = $locationEndId;
+        $this->locationStart = $locationStartId;
+        $this->locationEnd = $locationEndId;
         $this->dateTimeStart = $dateTimeStart;
         $this->dateTimeEnd = $dateTimeEnd;
     }
@@ -125,5 +125,16 @@ class Trip
         $this->dateTimeEnd = $dateTimeEnd;
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        return array(
+            'busId'=>$this->busId,
+            'locationStartId' => $this->locationStartId,
+            'locationEndId' => $this->locationEndId,
+            'dateTimeStart' => $this->dateTimeStart,
+            'dateTimeEnd' => $this->dateTimeEnd
+        );
     }
 }
