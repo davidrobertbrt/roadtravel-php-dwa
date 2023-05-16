@@ -19,7 +19,8 @@ return array(
         'contact@index' => array('controller'=>'ContactController','action'=>'index'),
         'location@index' => array('controller'=>'LocationController','action'=>'index'),
         'bus@index' => array('controller'=>'BusController','action'=>'index'),
-        'trip@index' => array('controller'=>'TripController','action'=>'index')
+        'trip@index' => array('controller'=>'TripController','action'=>'index'),
+        'discount@index'=>array('controller'=>'DiscountController','action'=>'index')
     ),
     'POST' => array(
         'login@process' => array('controller'=>'LoginController','action'=>'process'),
@@ -36,6 +37,10 @@ return array(
         'trip@create' => array('controller'=>'TripController','action'=>'create'),
         'trip@edit' => array('controller'=>'TripController','action'=>'edit'),
         'trip@process'=>array('controller'=>'TripController','action'=>'process'),
-        'trip@delete'=>array('controller'=>'TripController','action'=>'delete')
+        'trip@delete'=>array('controller'=>'TripController','action'=>'delete'),
+        'discount@create'=>array('controller'=>'DiscountController','action'=>'create'),
+        'discount@edit'=>array('controller'=>'DiscountController','action'=>'edit'),
+        'discount@process'=>array('controller'=>'DiscountController','action'=>'process'),
+        'discount@delete'=>array('controller'=>'DiscountController','action'=>'delete')
     ),
 );

@@ -20,12 +20,12 @@ class DiscountRepository
 
         foreach($resultDb as $result)
         {
-            $used = (int) filter_var($result['used'], FILTER_VALIDATE_BOOLEAN);
             $id = intval($result['id']);
             $factor = floatval($result['factor']);
+            $used = (int) filter_var($result['used'], FILTER_VALIDATE_BOOLEAN);
 
             $list[$id] = new Discount(
-                $id,$used,$factor  
+                $id,$factor,$used 
             );
         }
 
@@ -46,12 +46,12 @@ class DiscountRepository
         if(!is_array($resultDb))
             return null;
 
-        $used = (int) filter_var($resultDb['used'], FILTER_VALIDATE_BOOLEAN);
         $id = intval($resultDb['id']);
         $factor = floatval($resultDb['factor']);
+        $used = (int) filter_var($resultDb['used'], FILTER_VALIDATE_BOOLEAN);
 
         return new Discount(
-            $id,$used,$factor  
+            $id,$factor,$used 
         );
     }
 
@@ -75,9 +75,10 @@ class DiscountRepository
         return true;
     }
 
-    public static function update(&$var){
+    public static function update(&$var)
+    {
         if(!isset($var))
-        return false;
+            return false;
 
         if($var->getId() === null)
             return false;
