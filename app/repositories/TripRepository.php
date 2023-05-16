@@ -24,7 +24,7 @@ class TripRepository
 
         return new Trip
         (
-            $resultDb['id'],$resultDb['bus'],$resultDb['locationStartId'],$resultDb['locationEndId'],$resultDb['dateTimeStart'],$resultDb['dateTimeEnd']
+            $resultDb['id'],$resultDb['busId'],$resultDb['locationStartId'],$resultDb['locationEndId'],$resultDb['dateTimeStart'],$resultDb['dateTimeEnd']
         );
     }
 
@@ -61,11 +61,10 @@ class TripRepository
         $resultDb = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $list = array();
 
-
         foreach($resultDb as $result)
         {
-            $list[] = new Trip(
-                $result['id'],$result['bus'],$result['locationStartId'],$result['locationEndId'],$result['dateTimeStart'],$result['dateTimeEnd']
+            $list[$result['id']] = new Trip(
+                $result['id'],$result['busId'],$result['locationStartId'],$result['locationEndId'],$result['dateTimeStart'],$result['dateTimeEnd']
             );
         }
 
@@ -117,7 +116,7 @@ class TripRepository
         $table = self::getTableName();
 
         $properties = $trip->toArray();
-        $values = array_values($trip);
+        $values = array_values($properties);
 
         $checkTrip = self::canInsertTrip(null,$properties['busId'],$properties['dateTimeStart'],$properties['dateTimeEnd']);
 
@@ -125,8 +124,8 @@ class TripRepository
             return false;
 
         $placeholders = implode(',', array_fill(0, count($values), '?'));
-
-        $stmt = $conn->prepare("INSERT INTO {$table} VALUES(busId,locationStartId,locationEndId,dateTimeStart,dateTimeEnd) VALUES({$placeholders})");
+        
+        $stmt = $conn->prepare("INSERT INTO {$table} (busId,locationStartId,locationEndId,dateTimeStart,dateTimeEnd) VALUES({$placeholders})");
         $stmt->execute($values);
         $trip->setId($conn->lastInsertId());
 

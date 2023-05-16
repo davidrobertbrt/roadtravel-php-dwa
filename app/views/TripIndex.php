@@ -6,16 +6,16 @@
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4"> 
                     <h2>Create a new trip</h2>
-                    <form>
+                    <form method = "POST" action="create">
                     <div class="form-group">
                         <label for="departureSelect">Bus select:</label>
-                        <select class="form-control" id="busSelect">
+                        <select class="form-control" id="busSelect" name = "busId">
                         <!-- import from bus repository.-->
                         <?php
                             foreach($data['busRepo'] as $bus) {
                                 $id = $bus->getId();
                                 $nrSeats = $bus->getNrSeats();
-                                $optionUrl = "(Bus {$busId} | {$nrSeats})";
+                                $optionUrl = "(Bus {$id} | {$nrSeats})";
                         ?>
                             <option value = "<?php echo $id;?>"><?php echo $optionUrl; ?></option>
                         <?php }?>
@@ -24,7 +24,7 @@
                     <!-- import from location repository -->
                     <div class="form-group">
                         <label for="departureSelect">Departure:</label>
-                        <select class="form-control" id="departureSelect">
+                        <select class="form-control" id="departureSelect" name = "departureId">
                             <?php
                                 foreach($data['locationRepo'] as $location) {
                                     $id = $location->getId();
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <!-- import from location repository -->
                         <label for="arrivalSelect">Arrival:</label>
-                        <select class="form-control" id="arrivalSelect">
+                        <select class="form-control" id="arrivalSelect" name = "arrivalId">
                             <?php
                                 foreach($data['locationRepo'] as $location) {
                                     $id = $location->getId();
@@ -50,11 +50,11 @@
                     <div class="form-group">
                         <!-- no import -->
                         <label for="dateTimeDeparture">Date/Time of Departure:</label>
-                        <input type="datetime-local" class="form-control" id="dateTimeDeparture">
+                        <input type="datetime-local" class="form-control" id="dateTimeDeparture" name = "dateTimeStart">
                     </div>
                     <div class="form-group">
                         <label for="dateTimeArrival">Date/Time of Arrival:</label>
-                        <input type="datetime-local" class="form-control" id="dateTimeArrival">
+                        <input type="datetime-local" class="form-control" id="dateTimeArrival" name="dateTimeEnd">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -72,7 +72,7 @@
                         </tr>
                     </thead>
                     <?php 
-                        if(empty($data['tripRepo'])) {
+                        if(!empty($data['tripRepo'])) {
                     ?>
                     <tbody>
                         <?php
@@ -87,8 +87,8 @@
                         <tr>
                             <td><?php echo $id; ?></td>
                             <td><?php echo $busId; ?></td>
-                            <td><?php echo $data['locationRepo'][$departureId]; ?></td>
-                            <td><?php echo $data['locationRepo'][$arrivalId];?></td>
+                            <td><?php echo $data['locationRepo'][$departureId]->getName(); ?></td>
+                            <td><?php echo $data['locationRepo'][$arrivalId]->getName();?></td>
                             <td><?php echo $dateTimeStart; ?></td>
                             <td><?php echo $dateTimeEnd; ?></td>
                             <td>
