@@ -8,11 +8,13 @@
 
 class Controller{
 
+    protected $viewData;
     protected $request;
 
     public function __construct($request)
     {
         $this->request = $request;
+        $this->viewData = array();
     }
 
     public function render($view, $data = array())

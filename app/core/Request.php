@@ -43,7 +43,7 @@ class Request{
         if($method === 'POST')
             $requestData = $_POST;
         else
-            $requestData = (count($uri) > 2) ? array_values(array_slice($uri,2)) : array();
+            $requestData = (count($uri) > 2) ? array_values(array_slice($uri,2)) : null;
     
         return new self($controller . '@' . $action, $method, $requestData);
     }
