@@ -20,7 +20,8 @@ return array(
         'location@index' => array('controller'=>'LocationController','action'=>'index'),
         'bus@index' => array('controller'=>'BusController','action'=>'index'),
         'trip@index' => array('controller'=>'TripController','action'=>'index'),
-        'discount@index'=>array('controller'=>'DiscountController','action'=>'index')
+        'discount@index'=>array('controller'=>'DiscountController','action'=>'index'),
+        'booking@index'=>array('controller'=>'BookingController','action'=>'index')
     ),
     'POST' => array(
         'login@process' => array('controller'=>'LoginController','action'=>'process'),
@@ -41,6 +42,7 @@ return array(
         'discount@create'=>array('controller'=>'DiscountController','action'=>'create'),
         'discount@edit'=>array('controller'=>'DiscountController','action'=>'edit'),
         'discount@process'=>array('controller'=>'DiscountController','action'=>'process'),
-        'discount@delete'=>array('controller'=>'DiscountController','action'=>'delete')
+        'discount@delete'=>array('controller'=>'DiscountController','action'=>'delete'),
+        'booking@fetchAvailableTrips'=>array('controller'=>'BookingController','action'=>'fetchAvailableTrips')
     ),
 );

@@ -48,8 +48,31 @@ class TripRepository
     }
 
     //TO-DO: function to fetch the available trips based on bookings 
-    public static function fetchAvailable($locationStart, $locationEnd,$dateTimeStart,$dateTimeEnd) {
+    public static function fetchAvailable($locationStartId, $dateTimeStart) 
+    {
+        $conn = DatabaseConnection::getConnection();
         
+        $stmt = $conn->prepare("CALL ListTripsWithAvailableSeats(:targetDateTime, :startLocationId)");
+
+        $formatDateTime = $dateTimeStart->format('Y-m-d H:i:s');
+
+        $stmt->bindParam(':targetDateTime', $formatDateTime);
+        $stmt->bindParam(':startLocationId', $locationStartId);
+        $stmt->execute();
+        $resultDb = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $list = array();
+
+
+        foreach($resultDb as $result)
+        {
+            var_dump($result);
+            $list[$result['id']] = new Trip(
+                $result['id'],$result['busId'],$result['locationStartId'],$result['locationEndId'],$result['dateTimeStart'],$result['dateTimeEnd']
+            );
+        }
+
+        return $list ?? null;
     }
 
     public static function readAll() {
