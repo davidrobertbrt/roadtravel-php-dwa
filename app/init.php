@@ -30,6 +30,8 @@ require_once 'repositories/TripRepository.php';
 require_once 'repositories/DiscountRepository.php';
 require_once 'repositories/BookingRepository.php';
 
+require_once 'vendor/fpdf/fpdf.php';
+
 // debug statements
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
