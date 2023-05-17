@@ -21,4 +21,25 @@ class GeolocationApi{
         );
     }
 
+    public static function calculateDistance($geopos1,$geopos2, $unit = 'km') {
+
+        $latitude1 = $geopos1['latitude'];
+        $longitude1 = $geopos1['longitude'];
+        $latitude2 = $geopos2['latitude'];
+        $longitude2 = $geopos2['longitude'];
+
+        $earthRadius = ($unit === 'km') ? 6371 : 3959; // Radius of the Earth in kilometers or miles
+    
+        $latDiff = deg2rad($latitude2 - $latitude1);
+        $lngDiff = deg2rad($longitude2 - $longitude1);
+    
+        $a = sin($latDiff / 2) * sin($latDiff / 2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($lngDiff / 2) * sin($lngDiff / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    
+        $distance = $earthRadius * $c;
+    
+        return $distance;
+    }
+    
+    
 }

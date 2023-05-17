@@ -91,6 +91,14 @@ class Location {
         return $this;
     }
 
+    public function getGeopos()
+    {
+        return array(
+            'latitude'=> $this->latitude,
+            'longitude'=> $this->longitude
+        );
+    }
+
     public function toArray()
     {
         return array(

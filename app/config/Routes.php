@@ -43,6 +43,7 @@ return array(
         'discount@edit'=>array('controller'=>'DiscountController','action'=>'edit'),
         'discount@process'=>array('controller'=>'DiscountController','action'=>'process'),
         'discount@delete'=>array('controller'=>'DiscountController','action'=>'delete'),
-        'booking@fetchAvailableTrips'=>array('controller'=>'BookingController','action'=>'fetchAvailableTrips')
+        'booking@fetchAvailableTrips'=>array('controller'=>'BookingController','action'=>'fetchAvailableTrips'),
+        'booking@process'=>array('controller'=>'BookingController','action'=>'process')
     ),
 );

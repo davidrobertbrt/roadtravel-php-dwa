@@ -28,6 +28,7 @@ require_once 'repositories/LocationRepository.php';
 require_once 'repositories/BusRepository.php';
 require_once 'repositories/TripRepository.php';
 require_once 'repositories/DiscountRepository.php';
+require_once 'repositories/BookingRepository.php';
 
 // debug statements
 ini_set('display_errors', 1);

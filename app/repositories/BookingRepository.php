@@ -82,7 +82,7 @@ class BookingRepository
         $userId = intval($resultDb['userId']);
         $numOfPersons = intval($resultDb['numOfPersons']);
         $price = floatval($resultDb['price']);
-        $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s',$result['datePurchase']);
+        $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s',$resultDb['datePurchase']);
         
 
         return new Booking(
@@ -103,7 +103,7 @@ class BookingRepository
 
         $placeholders = implode(',', array_fill(0, count($values), '?'));
         
-        $stmt = $conn->prepare("INSERT INTO {$table} (factor,used) VALUES({$placeholders})");
+        $stmt = $conn->prepare("INSERT INTO {$table} (tripId,userId,numOfPersons,price,datePurchase) VALUES({$placeholders})");
         $stmt->execute($values);
         $var->setId($conn->lastInsertId());
 
