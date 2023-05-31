@@ -70,7 +70,7 @@ class LocationController extends Controller
         }
 
         $response = new Response('Location deleted',200);
-        $reponse->send();
+        $response->send();
 
     }
 
