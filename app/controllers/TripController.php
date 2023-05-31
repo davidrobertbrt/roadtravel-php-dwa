@@ -5,9 +5,8 @@ class TripController extends Controller
     public function __construct($request)
     {
         parent::__construct($request);
-        $locationRepo = new LocationRepository();
         $this->viewData['busRepo'] = BusRepository::readAll();
-        $this->viewData['locationRepo'] = $locationRepo->readAll();
+        $this->viewData['locationRepo'] = LocationRepository::readAll();
         $this->viewData['tripRepo'] = TripRepository::readAll();
     }
 

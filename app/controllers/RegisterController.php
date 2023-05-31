@@ -8,8 +8,6 @@ class RegisterController extends Controller
     public function __construct($request)
     {
         parent::__construct($request);
-        $this->userRepo = new UserRepository();
-        $this->credentialRepo = new CredentialRepository();
     }
 
     public function index()
@@ -21,7 +19,7 @@ class RegisterController extends Controller
     {
         $formData = $this->request->getData();
 
-        $user = $this->userRepo->readByEmail($formData['emailAddress']);
+        $user = UserRepository::readByEmail($formData['emailAddress']);
 
         if(isset($user))
         {
@@ -32,13 +30,13 @@ class RegisterController extends Controller
         // date of birth conversion in middleware
 
         $user = User::constructNoId($formData['emailAddress'],$formData['firstName'],$formData['lastName'],$formData['dateOfBirth'],$formData['lastName'],$formData['phoneNumber'],$formData['address']);
-        $idInsertUser = $this->userRepo->create($user);
+        $idInsertUser = UserRepository::create($user);
         $user->setId($idInsertUser);
         
         //encrypt password in middleware
 
         $credential = Credential::loadByParams(null,$idInsertUser,$formData['password']);
-        $idInsertCredential = $this->credentialRepo->create($credential);
+        $idInsertCredential = CredentialRepository::create($credential);
         $credential->setId($idInsertCredential);
 
         $response = new Response("User created.",200);

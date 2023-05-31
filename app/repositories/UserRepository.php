@@ -4,14 +4,14 @@ require_once '../app/model/User.php';
 
 class UserRepository
 {
-    public function __construct() {}
+    private function __construct() {}
 
     public static function getTableName()
     {
         return "users";
     }
 
-    public function readById($id)
+    public static function readById($id)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -34,7 +34,7 @@ class UserRepository
         );
     }
 
-    public function readByEmail($emailAddress)
+    public static function readByEmail($emailAddress)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -59,7 +59,7 @@ class UserRepository
     }
 
 
-    public function create($user)
+    public static function create($user)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -67,7 +67,7 @@ class UserRepository
         $properties = $user->toArray();
         $values = array_values($properties);
     
-        $checkUser = $this->readByEmail($properties['emailAddress']);
+        $checkUser = self::readByEmail($properties['emailAddress']);
     
         if ($checkUser !== null) {
             return null;
@@ -82,7 +82,7 @@ class UserRepository
     }
     
 
-    public function updateById($user)
+    public static function updateById($user)
     {
         if($user->getId() === null)
             return null;
@@ -102,7 +102,7 @@ class UserRepository
         return $stmt->execute($values);
     }
 
-    public function delete($user)
+    public static function delete($user)
     {
         $id = $user->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");

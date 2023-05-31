@@ -5,8 +5,8 @@ class BookingController extends Controller
     public function __construct($request)
     {
         parent::__construct($request);
-        $locationRepo = new LocationRepository();
-        $this->viewData['locationRepo'] = $locationRepo->readAll();
+       
+        $this->viewData['locationRepo'] = LocationRepository::readAll();
     }
 
     public function index()
@@ -14,6 +14,7 @@ class BookingController extends Controller
         $this->render('BookingIndex',$this->viewData);
     }
 
+    //API call through ajax
     public function fetchAvailableTrips()
     {
         $formData = $this->request->getData();
@@ -99,8 +100,7 @@ class BookingController extends Controller
             exit();
         }
 
-        $userRepo = new UserRepository();
-        $user = $userRepo->readById($userId);
+        $user = UserRepository::readById($userId);
         $this->print($booking,$trip,$user);
         return;
     }

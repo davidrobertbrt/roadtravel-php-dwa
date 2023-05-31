@@ -4,11 +4,11 @@ require_once '../app/model/Location.php';
 
 class LocationRepository{
 
-    public function __construct() {}
+    private function __construct() {}
 
     public static function getTableName() {return 'locations';}
 
-    public function readById($id)
+    public static function readById($id)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -27,7 +27,7 @@ class LocationRepository{
         );
     }
 
-    public function readByName($name)
+    public static function readByName($name)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -45,7 +45,7 @@ class LocationRepository{
         );
     }
 
-    public function readAll()
+    public static function readAll()
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -66,7 +66,7 @@ class LocationRepository{
         return $locationList ?? null;
     }
 
-    public function create($location)
+    public static function create($location)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -74,7 +74,7 @@ class LocationRepository{
         $properties = $location->toArray();
         $values = array_values($properties);
 
-        $checkLocation = $this->readByName($properties['name']);
+        $checkLocation = self::readByName($properties['name']);
 
         if(isset($checkLocation))
             return null;
@@ -87,7 +87,7 @@ class LocationRepository{
         return $conn->lastInsertId();
     }
 
-    public function update($location)
+    public static function update($location)
     {
         if($location->getId() === null)
             return null;
@@ -107,7 +107,7 @@ class LocationRepository{
         
     }
 
-    public function delete($location)
+    public static function delete($location)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();

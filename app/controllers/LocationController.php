@@ -7,13 +7,12 @@ class LocationController extends Controller
     public function __construct($request)
     {
         parent::__construct($request);
-        $this->locationRepo = new LocationRepository();
     }
 
 
     public function index()
     {
-        $viewData['locations'] = $this->locationRepo->readAll();
+        $viewData['locations'] = LocationRepository::readAll();
         $this->render('LocationIndex',$viewData);
     }
 
@@ -33,7 +32,7 @@ class LocationController extends Controller
         }
 
         $locationInsert = Location::loadByParams(null,$name,$longitude,$latitude);
-        $idInsert = $this->locationRepo->create($locationInsert);
+        $idInsert = LocationRepository::create($locationInsert);
 
         if($idInsert === null)
         {
@@ -51,7 +50,7 @@ class LocationController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
 
-        $location = $this->locationRepo->readById($id);
+        $location = LocationRepository::readById($id);
 
         if($location === null)
         {
@@ -60,7 +59,7 @@ class LocationController extends Controller
             return;
         }
 
-        $checkDeletion = $this->locationRepo->delete($location);
+        $checkDeletion = LocationRepository::delete($location);
 
         if($checkDeletion === false)
         {
@@ -79,7 +78,7 @@ class LocationController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
 
-        $location = $this->locationRepo->readById($id);
+        $location = LocationRepository::readById($id);
 
         if($location === null)
         {
@@ -119,7 +118,7 @@ class LocationController extends Controller
 
         $location = Location::loadByParams($id,$name,$longitude,$latitude);
 
-        $checkUpdate = $this->locationRepo->update($location);
+        $checkUpdate = LocationRepository::update($location);
 
         if($checkUpdate === false)
         {

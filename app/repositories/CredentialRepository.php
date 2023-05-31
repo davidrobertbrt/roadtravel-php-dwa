@@ -5,14 +5,14 @@ require_once '../app/model/Credential.php';
 class CredentialRepository
 {
     // prevent construct of utility class
-    public function __construct() {}
+    private function __construct() {}
 
     public static function getTableName()
     {
         return "credentials";
     }
 
-    public function readById($id)
+    public static function readById($id)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -33,7 +33,7 @@ class CredentialRepository
         );
     }
 
-    public function readByUserId($userId)
+    public static function readByUserId($userId)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -56,7 +56,7 @@ class CredentialRepository
     }
 
 
-    public function create($credential)
+    public static function create($credential)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -64,7 +64,7 @@ class CredentialRepository
         $properties = $credential->toArray();
         $values = array_values($credential->toArray());
 
-        $checkUser = ($this->readByUserId($properties['userId'])) ? true : false;
+        $checkUser = (self::readByUserId($properties['userId'])) ? true : false;
 
         if($checkUser === true)
             return null;
@@ -77,7 +77,7 @@ class CredentialRepository
         return $conn->lastInsertId();
     }
 
-    public function updateById($credential)
+    public static function updateById($credential)
     {
         if($user->getId() === null)
             return null;
@@ -97,7 +97,7 @@ class CredentialRepository
         return $stmt->execute($values);
     }
 
-    public function delete($credential)
+    public static function delete($credential)
     {
         $id = $credential->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");

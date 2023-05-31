@@ -2,14 +2,9 @@
 
 class LoginController extends Controller
 {
-    private $userRepo;
-    private $credentialRepo;
-
     public function __construct($request)
     {
         parent::__construct($request);
-        $this->userRepo = new UserRepository();
-        $this->credentialRepo = new CredentialRepository();
     }
 
     public function index()
@@ -20,7 +15,7 @@ class LoginController extends Controller
     public function process()
     {
         $data = $this->request->getData();
-        $user = $this->userRepo->readByEmail($data['email']);
+        $user = UserRepository::readByEmail($data['email']);
 
 
         if(!isset($user))
@@ -30,7 +25,7 @@ class LoginController extends Controller
             exit();
         }
 
-        $credentials = $this->credentialRepo->readByUserId($user->getId());
+        $credentials = CredentialRepository::readByUserId($user->getId());
 
         if(!password_verify($data['password'],$credentials->getPassword()))
         {
