@@ -2,7 +2,7 @@
 
 require_once '../app/model/User.php';
 
-class UserRepository
+final class UserRepository
 {
     private function __construct() {}
 

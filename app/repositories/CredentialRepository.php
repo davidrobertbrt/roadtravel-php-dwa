@@ -2,7 +2,7 @@
 
 require_once '../app/model/Credential.php';
 
-class CredentialRepository
+final class CredentialRepository
 {
     // prevent construct of utility class
     private function __construct() {}

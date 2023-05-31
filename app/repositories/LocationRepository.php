@@ -2,7 +2,7 @@
 
 require_once '../app/model/Location.php';
 
-class LocationRepository{
+final class LocationRepository{
 
     private function __construct() {}
 

@@ -2,7 +2,7 @@
 
 require_once '../app/model/Bus.php';
 
-class BusRepository
+final class BusRepository
 {
     private function __construct() {}
 

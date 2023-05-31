@@ -2,7 +2,7 @@
 
 require_once '../app/model/Booking.php';
 
-class BookingRepository
+final class BookingRepository
 {
     private function __construct() {}
 

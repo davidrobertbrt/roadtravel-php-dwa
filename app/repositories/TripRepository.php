@@ -2,7 +2,7 @@
 
 require_once '../app/model/Trip.php';
 
-class TripRepository
+final class TripRepository
 {
     // utility class
     private function construct() {}
