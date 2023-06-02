@@ -15,7 +15,14 @@ final class LocationRepository{
 
         $stmt = $conn->prepare("SELECT * FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
-        $stmt->execute();
+        $checkExecute = $stmt->execute();
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($checkExecute);
+            $response->send();
+            return null;
+        }
 
         $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
 
@@ -66,7 +73,7 @@ final class LocationRepository{
         return $locationList ?? null;
     }
 
-    public static function create($location)
+    public static function create(&$location)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -82,9 +89,18 @@ final class LocationRepository{
         $placeholders = implode(',', array_fill(0, count($values), '?'));
 
         $stmt = $conn->prepare("INSERT INTO {$table} (name,longitude,latitude) VALUES({$placeholders})");
-        $stmt->execute($values);
+        $checkExecute = $stmt->execute($values);
 
-        return $conn->lastInsertId();
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($checkExecute);
+            $response->send();
+            return false;
+        }
+
+        $location->setId(intval($conn->lastInsertId()));
+
+        return true;
     }
 
     public static function update($location)
@@ -103,18 +119,37 @@ final class LocationRepository{
 
         $stmt = $conn->prepare("UPDATE {$table} SET {$set} WHERE id = ?");
 
-        return $stmt->execute($values);
+        $checkExecute = $stmt->execute($values);
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($checkExecute);
+            $response->send();
+            return false;
+        }
+        
+        return true;
         
     }
 
-    public static function delete($location)
+    public static function delete(&$location)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
         $id = $location->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
-        return $stmt->execute();
+        $checkExecute = $stmt->execute();
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($checkExecute);
+            $response->send();
+            return false;
+        }
+        
+        unset($location);
+        return true;
     }
 
 }

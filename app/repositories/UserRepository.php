@@ -18,7 +18,15 @@ final class UserRepository
 
         $stmt = $conn->prepare("SELECT * FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
-        $stmt->execute();
+        
+        $checkExecute = $stmt->execute();
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response -> send();
+            return null;
+        }
     
         $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
 
@@ -41,8 +49,14 @@ final class UserRepository
 
         $stmt = $conn->prepare("SELECT * FROM {$table} WHERE emailAddress = :emailAddress");
         $stmt->bindParam(':emailAddress',$emailAddress,PDO::PARAM_STR);
-        $stmt->execute();
+        $checkExecute =  $stmt->execute();
 
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response -> send();
+            return null;
+        }
         
         $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
 
@@ -59,7 +73,7 @@ final class UserRepository
     }
 
 
-    public static function create($user)
+    public static function create(&$user)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -76,13 +90,22 @@ final class UserRepository
         $placeholders = implode(',', array_fill(0, count($values), '?'));
     
         $stmt = $conn->prepare("INSERT INTO {$table} (firstName, lastName, dateOfBirth, phoneNumber, address, emailAddress) VALUES ({$placeholders})");
-        $stmt->execute($values);
-    
-        return $conn->lastInsertId();
+        $checkExecute = $stmt->execute($values);
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response->send();
+            return false;
+        }
+
+        $user->setId(intval($conn->lastInsertedId()));
+
+        return true;
     }
     
 
-    public static function updateById($user)
+    public static function update(&$user)
     {
         if($user->getId() === null)
             return null;
@@ -99,15 +122,35 @@ final class UserRepository
         $values[] = $id;
         $stmt = $conn->prepare("UPDATE {$table} SET {$set} WHERE id = ?");
 
-        return $stmt->execute($values);
+        $checkExecute = $stmt->execute($values);
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response->send();
+            return false;
+        }
+
+        return true;
     }
 
-    public static function delete($user)
+    public static function delete(&$user)
     {
         $id = $user->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
-        return $stmt->execute();
+        $checkExecute = $stmt->execute($values);
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response->send();
+            return false;
+        }
+
+        unset($user);
+
+        return true;
     }
 
 }

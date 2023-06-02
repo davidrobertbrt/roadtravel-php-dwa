@@ -56,7 +56,7 @@ final class CredentialRepository
     }
 
 
-    public static function create($credential)
+    public static function create(&$credential)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -72,12 +72,20 @@ final class CredentialRepository
         $placeholders = implode(',', array_fill(0, count($values), '?'));
 
         $stmt = $conn->prepare("INSERT INTO {$table} (userId,password) VALUES({$placeholders})");
-        $stmt->execute($values);
+        $checkExecute = $stmt->execute($values);
 
-        return $conn->lastInsertId();
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($checkExecute);
+            $response->send();
+            return false;
+        }
+
+        $credential->setId($conn->lastInsertId());
+        return true;
     }
 
-    public static function updateById($credential)
+    public static function update($credential)
     {
         if($user->getId() === null)
             return null;
@@ -97,11 +105,21 @@ final class CredentialRepository
         return $stmt->execute($values);
     }
 
-    public static function delete($credential)
+    public static function delete(&$credential)
     {
         $id = $credential->getId();
         $stmt = $conn->prepare("DELETE FROM {$table} WHERE id = :id");
         $stmt->bindParam(':id',$id,PDO::PARAM_INT);
-        return $stmt->execute();
+        $checkExecute =  $stmt->execute();
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($checkExecute);
+            $response->send();
+            return false;
+        }
+
+        unset($credential);
+        return true;
     }
 }
