@@ -12,9 +12,9 @@ return array(
         // This is the default handler for / URL
         '@' => array('controller' => 'HomeController','action'=>'index'),
         'example@index' => array('controller' => 'ExampleController','action'=>'index'),
-        'login@index' => array('controller' => 'LoginController','action'=>'index'),
-        'logout@process' => array('controller'=>'LogoutController','action'=>'process'),
-        'register@index' => array('controller' => 'RegisterController','action'=>'index'),
+        'login@index' => array('controller' => 'SessionController','action'=>'formLogin'),
+        'logout@process' => array('controller'=>'SessionController','action'=>'logout'),
+        'register@index' => array('controller' => 'SessionController','action'=>'formRegister'),
         'home@index' => array('controller'=>'HomeController','action'=>'index'),
         'contact@index' => array('controller'=>'ContactController','action'=>'index'),
         'location@index' => array('controller'=>'LocationController','action'=>'index'),
@@ -24,8 +24,8 @@ return array(
         'booking@index'=>array('controller'=>'BookingController','action'=>'index')
     ),
     'POST' => array(
-        'login@process' => array('controller'=>'LoginController','action'=>'process'),
-        'register@process' => array('controller'=>'RegisterController','action'=>'process'),
+        'login@process' => array('controller'=>'SessionController','action'=>'login'),
+        'register@process' => array('controller'=>'SessionController','action'=>'register'),
         'contact@process' => array('controller'=>'ContactController','action'=>'process'),
         'location@create' => array('controller'=>'LocationController','action'=>'create'),
         'location@delete' => array('controller'=>'LocationController','action'=>'delete'),
