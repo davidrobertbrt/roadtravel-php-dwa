@@ -75,14 +75,25 @@ final class SessionController extends Controller{
         // date of birth conversion in middleware
 
         $user = User::constructNoId($formData['emailAddress'],$formData['firstName'],$formData['lastName'],$formData['dateOfBirth'],$formData['lastName'],$formData['phoneNumber'],$formData['address']);
-        $idInsertUser = UserRepository::create($user);
-        $user->setId($idInsertUser);
+        $checkInsertion = UserRepository::create($user);
+
+        if($checkInsertion === false)
+        {
+            $response = new Response("Error at insertion",500);
+            $response->send();
+        }
         
         //encrypt password in middleware
 
         $credential = Credential::loadByParams(null,$idInsertUser,$formData['password']);
-        $idInsertCredential = CredentialRepository::create($credential);
-        $credential->setId($idInsertCredential);
+        $checkInsertion = CredentialRepository::create($credential);
+
+        if($checkInsertion === false)
+        {
+            UserRepository::delete($user);
+            $response = new Response("Error at insertion",500);
+            $response->send();
+        }
 
         $response = new Response("User created.",200);
         $response->send();
