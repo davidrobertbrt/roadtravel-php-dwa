@@ -28,13 +28,26 @@ final class Router{
     public function route($request)
     {
         $descriptor = $request->getDescriptor();
+
+        if(empty($descriptor))
+        {
+            $response = new Response("Page not found.",404);
+            $response->send();
+            exit();
+        }
+
         $method = $request->getMethod();
         $data = $request->getData();
 
         $routes = $this->routesTable[$method];
         // find the route that matches the descriptor
         $route = $routes[$descriptor] ?? null;
+        // get the middlewares specific for the route
         $middlewares = $this->middlewaresTable[$descriptor] ?? null;
+
+        // add the wildcard middlewares to the stack
+        $wildcardMiddlewares = $this->middlewaresTable['*'] ?? [];
+        $middlewares = array_merge($wildcardMiddlewares, $middlewares);
 
 
         if($route === null)
