@@ -43,7 +43,7 @@ final class Router{
         // find the route that matches the descriptor
         $route = $routes[$descriptor] ?? null;
         // get the middlewares specific for the route
-        $middlewares = $this->middlewaresTable[$descriptor] ?? null;
+        $middlewares = $this->middlewaresTable[$descriptor] ?? [];
 
         // add the wildcard middlewares to the stack
         $wildcardMiddlewares = $this->middlewaresTable['*'] ?? [];
@@ -58,7 +58,7 @@ final class Router{
             exit();
         }
 
-        if(isset($middlewares))
+        if(!empty($middlewares))
         {
             foreach($middlewares as $middlewareName)
             {
