@@ -11,7 +11,6 @@ return array(
     'GET' => array(
         // This is the default handler for / URL
         '@' => array('controller' => 'HomeController','action'=>'index'),
-        'example@index' => array('controller' => 'ExampleController','action'=>'index'),
         'login@index' => array('controller' => 'SessionController','action'=>'formLogin'),
         'logout@process' => array('controller'=>'SessionController','action'=>'logout'),
         'register@index' => array('controller' => 'SessionController','action'=>'formRegister'),

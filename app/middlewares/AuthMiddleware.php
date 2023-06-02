@@ -4,11 +4,11 @@ final class AuthMiddleware implements Middleware
 {
     public function __invoke($req){
         $descriptor = $req->getDescriptor();
-        $isSessionManager = $this->checkSessionManager($descriptor);
+        $pathCase = $this->checkPathCase($descriptor);
 
         // treat the case when the user is logged in. 
         // if it is, he should not enter the login, register pages...
-        if($isSessionManager === true)
+        if($pathCase === true)
         {
             if(isset($_SESSION['user']))
             {
@@ -34,7 +34,7 @@ final class AuthMiddleware implements Middleware
 
     }
 
-    private function checkSessionManager($descriptor)
+    private function checkPathCase($descriptor)
     {
         $patterns = array('login','register');
         foreach($patterns as $pattern)
