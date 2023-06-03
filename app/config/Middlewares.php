@@ -1,5 +1,6 @@
 <?php
 
 return array(
-    '*' => array('AuthMiddleware')
+    '*' => array('AuthMiddleware'),
+    'login@process' => array('FormParse')
 );

@@ -59,6 +59,7 @@ final class FormParse implements Middleware
 
                 $isValid = $this->validate($inputType,$sanitizedValue);
 
+
                 if(!$isValid)
                 {
                     $res = new Response('Error at validation',403);
@@ -105,7 +106,7 @@ final class FormParse implements Middleware
         }
     }
 
-    private function sanitizeText(string $text): string
+    private function sanitizeText($text)
     {
         $text = trim($text); 
         $text = strip_tags($text); 
@@ -113,21 +114,21 @@ final class FormParse implements Middleware
         return $text;
     }
 
-    private function sanitizePhoneNumber(string $phoneNumber): string
+    private function sanitizePhoneNumber($phoneNumber)
     {
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber); 
 
         return $phoneNumber;
     }
 
-    private function sanitizeInteger(string $integer): int
+    private function sanitizeInteger($integer)
     {
         $integer = preg_replace('/[^0-9]/', '', $integer);
 
         return intval($integer);
     }
 
-    private function sanitizeDatetime(string $datetime): string
+    private function sanitizeDatetime($datetime)
     {
         $dateTimeObj = DateTime::createFromFormat('Y-m-d H:i:s', $datetime); 
 
@@ -135,12 +136,11 @@ final class FormParse implements Middleware
         return $formattedDatetime;
     }
 
-    private function sanitizePassword(string $password): string
+    private function sanitizePassword($password)
     {
         $password = trim($password);
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
 
-        return $hashedPassword;
+        return $password;
     }
 
 }
