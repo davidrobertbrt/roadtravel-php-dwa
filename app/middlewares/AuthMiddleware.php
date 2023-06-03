@@ -36,7 +36,7 @@ final class AuthMiddleware implements Middleware
 
     private function checkPathCase($descriptor)
     {
-        $patterns = array('login','register');
+        $patterns = array('login','register','reset');
         foreach($patterns as $pattern)
         {
             if(substr($descriptor,0,strlen($pattern)) === $pattern)

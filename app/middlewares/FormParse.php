@@ -11,6 +11,9 @@ final class FormParse implements Middleware
 {
     public function __invoke($req)
     {
+        if($req->getMethod() === 'GET')
+            return $req;
+
         $descriptor = $req->getDescriptor();
         $rulesTable = require_once '../app/config/FormRules.php';
 

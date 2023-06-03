@@ -22,7 +22,7 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="Introdu parola">
                     </div>
                     <div class = "form-group">
-                        <a href = "./../login/reset">Ai uitat parola?</a>
+                        <a href = "./../reset/index">Ai uitat parola?</a>
                     </div>
                     <div class = "form-group">
                         <a href = "./../register/index">Înregistrează-te aici</a>

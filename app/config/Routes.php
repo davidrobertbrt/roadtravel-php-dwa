@@ -20,7 +20,9 @@ return array(
         'bus@index' => array('controller'=>'BusController','action'=>'index'),
         'trip@index' => array('controller'=>'TripController','action'=>'index'),
         'discount@index'=>array('controller'=>'DiscountController','action'=>'index'),
-        'booking@index'=>array('controller'=>'BookingController','action'=>'index')
+        'booking@index'=>array('controller'=>'BookingController','action'=>'index'),
+        'reset@index'=>array('controller'=>'SessionController','action'=>'formReset'),
+        'reset@confirm'=>array('controller'=>'SessionController','action'=>'formResetConfirm')        
     ),
     'POST' => array(
         'login@process' => array('controller'=>'SessionController','action'=>'login'),
@@ -43,6 +45,8 @@ return array(
         'discount@process'=>array('controller'=>'DiscountController','action'=>'process'),
         'discount@delete'=>array('controller'=>'DiscountController','action'=>'delete'),
         'booking@fetchAvailableTrips'=>array('controller'=>'BookingController','action'=>'fetchAvailableTrips'),
-        'booking@process'=>array('controller'=>'BookingController','action'=>'process')
+        'booking@process'=>array('controller'=>'BookingController','action'=>'process'),
+        'reset@send'=>array('controller'=>'SessionController','action'=>'formResetSend'),
+        'reset@process'=>array('controller'=>'SessionController','action'=>'resetProcess')
     ),
 );

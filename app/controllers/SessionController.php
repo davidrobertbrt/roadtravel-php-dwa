@@ -7,6 +7,25 @@ final class SessionController extends Controller{
         parent::__construct($request);
     }
 
+    private function generateResetCode($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code = '';
+    
+        for ($i = 0; $i < $length; $i++) {
+            $randomIndex = rand(0, strlen($characters) - 1);
+            $code .= $characters[$randomIndex];
+        }
+    
+        return $code;
+    }
+
+    private function generateResetURL($resetCode) {
+        $baseUrl = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/reset/confirm/' . $resetCode;
+        return $baseUrl;
+    }
+    
+
     public function formLogin()
     {
         $this->render('LoginIndex');
@@ -15,6 +34,115 @@ final class SessionController extends Controller{
     public function formRegister()
     {
         $this->render('RegisterIndex');
+    }
+
+    public function formReset()
+    {
+        $this->render('ResetIndex');
+    }
+
+    public function formResetSend()
+    {
+        $emailSender = EmailSender::getInstance();
+        $formData = $this->request->getData();
+        $email = $formData['email'];
+
+        $user = UserRepository::readByEmail($email);
+
+        if(!isset($user))
+        {
+            $response = new Response("User does not exist",403);
+            $response->send();
+            die();
+        }
+    
+        $credentials = CredentialRepository::readByUserId($user->getId());
+        $resetCode = $this->generateResetCode();
+        
+        $_SESSION['reset'] = array(
+            'credentialId'=>$credentials->getId(),
+            'code'=>$resetCode
+        );
+
+        $link = $this->generateResetURL($resetCode);
+        
+        $body = <<<EOT
+        <h2>RoadTravel</h2>
+        <h2>Link-ul de resetare al parolei a fost generat!</h2>
+        <a href="$link">Resetează parola</a>
+        EOT;
+
+
+        $emailSender->send($user->getEmailAddress(), "Resetarea parolei: RoadTravel", $body, Secrets::$EMAIL_USERNAME, "RoadTravel");
+
+        $response = new Response("Sent!",200);
+        $response->send();
+    }
+
+    public function formResetConfirm()
+    {
+        $formData = $this->request->getData();
+        $resetCode = $formData[0];
+
+        // this code should be moved in a middleware
+        if(!isset($_SESSION['reset']))
+        {
+            $response = new Response("Error",500);
+            $response->send();
+            exit();
+        }
+
+        if($resetCode !== $_SESSION['reset']['code'])
+        {
+            $response = new Response("Cod invalid!",403);
+            $response->send();
+            exit();
+        }
+        /////// ends here
+        
+        $this->render('ResetConfirm');
+
+    }
+
+    public function resetProcess()
+    {
+        $formData = $this->request->getData();
+        // this code should be moved in a middleware
+        if(!isset($_SESSION['reset']))
+        {
+            $response = new Response("Error",500);
+            $response->send();
+            exit();
+        }
+
+        if($formData['password'] !== $formData['confirmPassword'])
+        {
+            $response = new Response("Error",403);
+            $response->send();
+            exit();
+        }
+
+        var_dump($_SESSION['reset']);
+
+        $password = password_hash($formData['password'], PASSWORD_BCRYPT, ['cost' => 12]);
+
+        $credential = CredentialRepository::readById(intval($_SESSION['reset']['credentialId']));
+        $credential->setPassword($password);
+
+        $checkUpdate = CredentialRepository::update($credential);
+
+        if($checkUpdate === false)
+        {
+            $response = new Response("Error",500);
+            $response->send();
+            exit();
+        }
+
+
+        $response = new Response("Password updated.",200);
+        $response->send();
+
+        unset($_SESSION['reset']);
     }
 
     public function login()

@@ -97,5 +97,12 @@ return array(
         'arrivalId'=>array('type'=>'integer','opt'=>false),
         'dateTimeStart'=>array('type'=>'datetime','opt'=>false),
         'dateTimeEnd'=>array('type'=>'datetime','opt'=>false)
+    ),
+    'reset@send'=>array(
+        'email'=>array('type'=>'email','opt'=>false)
+    ),
+    'reset@process'=>array(
+        'password'=>array('type'=>'password','opt'=>false),
+        'confirmPassword'=>array('type'=>'password','opt'=>false)
     )
 );
