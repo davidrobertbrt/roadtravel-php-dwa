@@ -104,5 +104,8 @@ return array(
     'reset@process'=>array(
         'password'=>array('type'=>'password','opt'=>false),
         'confirmPassword'=>array('type'=>'password','opt'=>false)
+    ),
+    'tickets@generate'=>array(
+        'id'=>array('type'=>'integer','opt'=>false)
     )
 );
