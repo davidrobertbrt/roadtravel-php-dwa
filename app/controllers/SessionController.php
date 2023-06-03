@@ -158,6 +158,8 @@ final class SessionController extends Controller{
         }
 
         $fetchedUserId = $crUser->getId();
+        $fetchedEmail = $crUser->getEmailAddress();
+        $fetchedRole = RoleRepository::readByUserId($fetchedUserId)->getRole();
         $crCredentials = CredentialRepository::readByUserId($fetchedUserId);
         $fetchedPassword=  $crCredentials->getPassword();
 
@@ -170,6 +172,8 @@ final class SessionController extends Controller{
 
         $urlPath = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
         $_SESSION['user'] = $fetchedUserId;
+        $_SESSION['email'] = $fetchedEmail;
+        $_SESSION['role'] = $fetchedRole;
         header("Location: " . $urlPath);
         exit();
     }
@@ -196,7 +200,7 @@ final class SessionController extends Controller{
 
         if(isset($user))
         {
-            $req = new Request("User already exists!",403);
+            $req = new Response("User already exists!",403);
             $req->send();
         }
 
@@ -211,13 +215,25 @@ final class SessionController extends Controller{
             $response->send();
         }
         
-        //encrypt password in middleware
+        $idInsertUser = $user->getId();
 
         $credential = Credential::loadByParams(null,$idInsertUser,$formData['password']);
         $checkInsertion = CredentialRepository::create($credential);
 
         if($checkInsertion === false)
         {
+            UserRepository::delete($user);
+            $response = new Response("Error at insertion",500);
+            $response->send();
+        }
+
+        $role = Role::constructNoId($idInsertUser,'default');
+
+        $checkInsertion = RoleRepository::create($role);
+
+        if($checkInsertion === false)
+        {
+            CredentialRepository::delete($credential);
             UserRepository::delete($user);
             $response = new Response("Error at insertion",500);
             $response->send();

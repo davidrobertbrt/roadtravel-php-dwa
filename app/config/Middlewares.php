@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    '*' => array('AuthMiddleware','FormParse'),
+    '*' => array('AuthMiddleware','RoleMiddleware','FormParse'),
     'register@process'=>array('RegisterFormParse'),
     'location@process'=>array('GeolocationFetch'),
     'location@create'=>array('GeolocationFetch'),
