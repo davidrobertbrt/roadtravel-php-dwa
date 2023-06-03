@@ -98,7 +98,7 @@ final class UserRepository
             return false;
         }
 
-        $user->setId(intval($conn->lastInsertedId()));
+        $user->setId(intval($conn->lastInsertId()));
 
         return true;
     }

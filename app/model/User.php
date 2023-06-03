@@ -170,7 +170,7 @@ class User{
         return array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
-            'dateOfBirth' => $this->dateOfBirth->format('Y-m-d'),
+            'dateOfBirth' => $this->dateOfBirth,
             'phoneNumber' => $this->phoneNumber,
             'address' => $this->address,
             'emailAddress' => $this->emailAddress
