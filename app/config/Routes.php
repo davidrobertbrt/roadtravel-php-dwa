@@ -23,7 +23,8 @@ return array(
         'booking@index'=>array('controller'=>'BookingController','action'=>'index'),
         'reset@index'=>array('controller'=>'SessionController','action'=>'formReset'),
         'reset@confirm'=>array('controller'=>'SessionController','action'=>'formResetConfirm'),
-        'tickets@index'=>array('controller'=>'TicketController','action'=>'index')        
+        'tickets@index'=>array('controller'=>'TicketController','action'=>'index'),
+        'user@index' => array('controller'=>'UserController','action'=>'index')  
     ),
     'POST' => array(
         'login@process' => array('controller'=>'SessionController','action'=>'login'),
@@ -49,6 +50,7 @@ return array(
         'booking@process'=>array('controller'=>'BookingController','action'=>'process'),
         'reset@send'=>array('controller'=>'SessionController','action'=>'formResetSend'),
         'reset@process'=>array('controller'=>'SessionController','action'=>'resetProcess'),
-        'tickets@generate'=>array('controller'=>'TicketController','action'=>'generate')
+        'tickets@generate'=>array('controller'=>'TicketController','action'=>'generate'),
+        'user@promote'=>array('controller'=>'UserController','action'=>'promote')
     ),
 );

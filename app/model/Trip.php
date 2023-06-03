@@ -133,8 +133,8 @@ class Trip
             'busId'=>$this->busId,
             'locationStartId' => $this->locationStartId,
             'locationEndId' => $this->locationEndId,
-            'dateTimeStart' => $this->dateTimeStart->format('Y-m-d H:i:s'),
-            'dateTimeEnd' => $this->dateTimeEnd->format('Y-m-d H:i:s')
+            'dateTimeStart' => $this->dateTimeStart,
+            'dateTimeEnd' => $this->dateTimeEnd
         );
     }
 }

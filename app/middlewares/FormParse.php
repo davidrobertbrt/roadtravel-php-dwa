@@ -56,6 +56,7 @@ final class FormParse implements Middleware
                         break;
                     case 'text':
                         $sanitizedValue = $this->sanitizeText($value);
+                        break;
                     case 'phone':
                         $sanitizedValue = $this->sanitizePhoneNumber($value);
                         break;
@@ -112,13 +113,13 @@ final class FormParse implements Middleware
             case 'password':
                 return strlen($value) >= 8;
             case 'datetime':
-                return DateTime::createFromFormat('Y-m-d H:i:s', $value) !== false;
+                return DateTime::createFromFormat('Y-m-d H:i:s', $value . ' 00:00:00') !== false;
             case 'integer':
                 return filter_var($value, FILTER_VALIDATE_INT) !== false;
             case 'text':
                 return !empty($value);
             case 'phone':
-                return preg_match('/\d{12}/', $value);
+                return strlen($value) <= 12;
             case 'range':
                 return filter_var($value, FILTER_VALIDATE_FLOAT);
             case 'checkbox':
@@ -159,9 +160,9 @@ final class FormParse implements Middleware
 
     private function sanitizeDatetime($datetime)
     {
-        $dateTimeObj = DateTime::createFromFormat('Y-m-d H:i:s', $datetime); 
+        $dateTimeObj = DateTime::createFromFormat('Y-m-d H:i:s', $datetime . ' 00:00:00'); 
 
-        $formattedDatetime = $dateTimeObj->format('Y-m-d H:i:s'); 
+        $formattedDatetime = $dateTimeObj->format('Y-m-d'); 
         return $formattedDatetime;
     }
 

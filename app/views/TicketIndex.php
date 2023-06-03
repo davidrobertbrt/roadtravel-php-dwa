@@ -9,7 +9,6 @@
             <?php
                 if(empty($data['results']))
                 {
-                    var_dump($data['results']);
                     echo '<p>No bookings are made!</p>';
                 }
                 else{
