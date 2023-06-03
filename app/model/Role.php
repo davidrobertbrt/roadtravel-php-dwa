@@ -40,11 +40,9 @@ class Role
     /**
      * Set the value of id
      */
-    public function setId($id): self
+    public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -58,11 +56,9 @@ class Role
     /**
      * Set the value of userId
      */
-    public function setUserId($userId): self
+    public function setUserId($userId)
     {
         $this->userId = $userId;
-
-        return $this;
     }
 
     /**
@@ -76,11 +72,9 @@ class Role
     /**
      * Set the value of role
      */
-    public function setRole($role): self
+    public function setRole($role)
     {
         $this->role = $role;
-
-        return $this;
     }
 
     public function toArray()

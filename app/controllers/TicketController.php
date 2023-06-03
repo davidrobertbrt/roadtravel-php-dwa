@@ -94,7 +94,7 @@ final class TicketController extends Controller
 
         // Ticket details
         $price = $booking->getPrice();
-        $purchaseDate = date('Y-m-d');
+        $purchaseDate = $booking->getDatePurchase();
 
         $busId = $trip->getBusId();
         // Bus ID

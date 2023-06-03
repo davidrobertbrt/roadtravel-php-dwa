@@ -107,5 +107,8 @@ return array(
     ),
     'tickets@generate'=>array(
         'id'=>array('type'=>'integer','opt'=>false)
+    ),
+    'user@promote'=>array(
+        'id'=>array('type'=>'integer','opt'=>false)
     )
 );

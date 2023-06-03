@@ -33,7 +33,7 @@ final class UserRepository
         if(!is_array($resultDb))
             return null;
 
-        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $resultDb['dateOfBirth'] . ' 00:00:00');
+        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $resultDb['dateOfBirth'] . ' 00:00:00')->format('Y-m-d');
 
         return User::loadByParams
         (
@@ -62,13 +62,49 @@ final class UserRepository
         if(!is_array($resultDb))
             return null;
 
-        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $resultDb['dateOfBirth'] . ' 00:00:00');
+        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $resultDb['dateOfBirth'] . ' 00:00:00')->format('Y-m-d');
 
 
         return User::loadByParams
         (
             $resultDb['id'],$resultDb['emailAddress'],$resultDb['firstName'],$resultDb['lastName'],$resultDb['dateOfBirth'],$resultDb['phoneNumber'],$resultDb['address']
         );
+    }
+
+    public static function readAll()
+    {
+        $conn = DatabaseConnection::getConnection();
+        $table = self::getTableName();
+
+        $stmt = $conn->prepare("SELECT * FROM {$table}");
+        $checkExecute =  $stmt->execute();
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response -> send();
+            return null;
+        }
+
+        $resultDb = $stmt->fetchAll(PDO::FETCH_ASSOC) ?? null;
+
+        if(!is_array($resultDb))
+            return null;
+
+
+        $list = array();
+
+        foreach($resultDb as $result)
+        {
+            $result['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $result['dateOfBirth'] . ' 00:00:00')->format('Y-m-d');
+
+            $list[$result['id']] = User::loadByParams
+            (
+                $result['id'],$result['emailAddress'],$result['firstName'],$result['lastName'],$result['dateOfBirth'],$result['phoneNumber'],$result['address']
+            );
+        }
+
+        return $list ?? null;
     }
 
 

@@ -204,9 +204,8 @@ final class SessionController extends Controller{
             $req->send();
         }
 
-        // date of birth conversion in middleware
 
-        $user = User::constructNoId($formData['emailAddress'],$formData['firstName'],$formData['lastName'],$formData['dateOfBirth'],$formData['lastName'],$formData['phoneNumber'],$formData['address']);
+        $user = User::constructNoId($formData['emailAddress'],$formData['firstName'],$formData['lastName'],$formData['dateOfBirth'],$formData['phoneNumber'],$formData['address']);
         $checkInsertion = UserRepository::create($user);
 
         if($checkInsertion === false)
