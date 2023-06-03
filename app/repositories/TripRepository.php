@@ -2,7 +2,7 @@
 
 require_once '../app/model/Trip.php';
 
-class TripRepository
+final class TripRepository
 {
     // utility class
     private function construct() {}
@@ -149,8 +149,16 @@ class TripRepository
         $placeholders = implode(',', array_fill(0, count($values), '?'));
         
         $stmt = $conn->prepare("INSERT INTO {$table} (busId,locationStartId,locationEndId,dateTimeStart,dateTimeEnd) VALUES({$placeholders})");
-        $stmt->execute($values);
-        $trip->setId($conn->lastInsertId());
+        $checkExecute = $stmt->execute($values);
+
+        if($checkExecute === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response->send();
+            return false;
+        }
+
+        $trip->setId(intval($conn->lastInsertId()));
 
         return true;
     }
@@ -184,7 +192,11 @@ class TripRepository
         $checkUpdate = $stmt->execute($values);
 
         if($checkUpdate === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response->send();
             return false;
+        }
 
         return true;
     }
@@ -205,7 +217,11 @@ class TripRepository
         $checkDelete = $stmt->execute();
 
         if($checkDelete === false)
+        {
+            $response = DatabaseConnection::getError($stmt->errorInfo());
+            $response->send();
             return false;
+        }
 
         unset($trip);
         return true;

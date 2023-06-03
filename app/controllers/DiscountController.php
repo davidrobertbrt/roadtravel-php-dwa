@@ -56,6 +56,14 @@ class DiscountController extends Controller
     {
         $formData = $this->request->getData();
         $id = $formData['id'];
+
+        if(empty($this->viewData['discountRepo'][$id]))
+        {
+            $response = new Response("Discount could not be read",500);
+            $response->send();
+            exit();
+        }
+
         $this->viewData['crDiscount'] = $this->viewData['discountRepo'][$id];
 
         $this->render('DiscountEdit',$this->viewData);
@@ -64,25 +72,29 @@ class DiscountController extends Controller
     public function process()
     {
         $formData = $this->request->getData();
+        
+        $id = $formData['id'];
+        $factor = $formData['factor'];
+        $used = $formData['used'];
 
-        var_dump($formData);
+        if(empty($this->viewData['discountRepo'][$id]))
+        {
+            $response = new Response("Discount could not be read",500);
+            $response->send();
+            exit();
+        }
 
-        $id = intval($formData['id']);
-        $factor = floatval($formData['factor']);
-        $used = isset($formData['used']) ? 1 : 0;
-
-        var_dump($factor);
-
-        $discount = DiscountRepository::readById($id);
+        $discount = $this->viewData['discountRepo'][$id];
         $discount->setFactor($factor);
         $discount->setUsed($used);
+
         $checkEdit = DiscountRepository::update($discount);
         
         if($checkEdit === false)
         {
             $response = new Response("Discount can't be edited",403);
             $response->send();
-            exit();
+            return;
         }
 
         $response = new Response("Discount edited succesfully.",200);

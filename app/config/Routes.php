@@ -11,21 +11,23 @@ return array(
     'GET' => array(
         // This is the default handler for / URL
         '@' => array('controller' => 'HomeController','action'=>'index'),
-        'example@index' => array('controller' => 'ExampleController','action'=>'index'),
-        'login@index' => array('controller' => 'LoginController','action'=>'index'),
-        'logout@process' => array('controller'=>'LogoutController','action'=>'process'),
-        'register@index' => array('controller' => 'RegisterController','action'=>'index'),
+        'login@index' => array('controller' => 'SessionController','action'=>'formLogin'),
+        'logout@process' => array('controller'=>'SessionController','action'=>'logout'),
+        'register@index' => array('controller' => 'SessionController','action'=>'formRegister'),
         'home@index' => array('controller'=>'HomeController','action'=>'index'),
         'contact@index' => array('controller'=>'ContactController','action'=>'index'),
         'location@index' => array('controller'=>'LocationController','action'=>'index'),
         'bus@index' => array('controller'=>'BusController','action'=>'index'),
         'trip@index' => array('controller'=>'TripController','action'=>'index'),
         'discount@index'=>array('controller'=>'DiscountController','action'=>'index'),
-        'booking@index'=>array('controller'=>'BookingController','action'=>'index')
+        'booking@index'=>array('controller'=>'BookingController','action'=>'index'),
+        'reset@index'=>array('controller'=>'SessionController','action'=>'formReset'),
+        'reset@confirm'=>array('controller'=>'SessionController','action'=>'formResetConfirm'),
+        'tickets@index'=>array('controller'=>'TicketController','action'=>'index')        
     ),
     'POST' => array(
-        'login@process' => array('controller'=>'LoginController','action'=>'process'),
-        'register@process' => array('controller'=>'RegisterController','action'=>'process'),
+        'login@process' => array('controller'=>'SessionController','action'=>'login'),
+        'register@process' => array('controller'=>'SessionController','action'=>'register'),
         'contact@process' => array('controller'=>'ContactController','action'=>'process'),
         'location@create' => array('controller'=>'LocationController','action'=>'create'),
         'location@delete' => array('controller'=>'LocationController','action'=>'delete'),
@@ -44,6 +46,9 @@ return array(
         'discount@process'=>array('controller'=>'DiscountController','action'=>'process'),
         'discount@delete'=>array('controller'=>'DiscountController','action'=>'delete'),
         'booking@fetchAvailableTrips'=>array('controller'=>'BookingController','action'=>'fetchAvailableTrips'),
-        'booking@process'=>array('controller'=>'BookingController','action'=>'process')
+        'booking@process'=>array('controller'=>'BookingController','action'=>'process'),
+        'reset@send'=>array('controller'=>'SessionController','action'=>'formResetSend'),
+        'reset@process'=>array('controller'=>'SessionController','action'=>'resetProcess'),
+        'tickets@generate'=>array('controller'=>'TicketController','action'=>'generate')
     ),
 );

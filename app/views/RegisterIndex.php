@@ -12,7 +12,7 @@
                     Înregistrare
                 </div>
                 <div class="card-body">
-                    <form method = "POST" action = "./../register/process">
+                    <form method = "POST" action = "process">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                         <label for="firstName">Prenume</label>

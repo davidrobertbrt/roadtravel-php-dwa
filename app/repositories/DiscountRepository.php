@@ -2,7 +2,7 @@
 
 require_once '../app/model/Discount.php';
 
-class DiscountRepository
+final class DiscountRepository
 {
     private function __construct() {}
 

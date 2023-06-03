@@ -17,5 +17,7 @@ final class Response{
 
         if(isset($this->content))
             echo $this->content;
+
+        exit();
     }
 }

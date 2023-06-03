@@ -7,13 +7,12 @@ class LocationController extends Controller
     public function __construct($request)
     {
         parent::__construct($request);
-        $this->locationRepo = new LocationRepository();
     }
 
 
     public function index()
     {
-        $viewData['locations'] = $this->locationRepo->readAll();
+        $viewData['locations'] = LocationRepository::readAll();
         $this->render('LocationIndex',$viewData);
     }
 
@@ -22,20 +21,13 @@ class LocationController extends Controller
         $formData = $this->request->getData();
 
         $name = $formData['name'];
-        $latitude = empty($formData['latitude']) ? null : floatval($formData['latitude']);
-        $longitude = empty($formData['longitude']) ? null : floatval($formData['longitude']);
-
-        if($latitude === null || $longitude === null)
-        {
-            $geopos = GeolocationApi::getGeopos($name);
-            $latitude = $geopos['latitude'];
-            $longitude = $geopos['longitude'];
-        }
+        $latitude = $formData['latitude'];
+        $longitude = $formData['longitude'];
 
         $locationInsert = Location::loadByParams(null,$name,$longitude,$latitude);
-        $idInsert = $this->locationRepo->create($locationInsert);
+        $checkInsert = LocationRepository::create($locationInsert);
 
-        if($idInsert === null)
+        if($checkInsert === false)
         {
             $request = new Response('The location already exists!',403);
             $request->send();
@@ -51,7 +43,7 @@ class LocationController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
 
-        $location = $this->locationRepo->readById($id);
+        $location = LocationRepository::readById($id);
 
         if($location === null)
         {
@@ -60,17 +52,17 @@ class LocationController extends Controller
             return;
         }
 
-        $checkDeletion = $this->locationRepo->delete($location);
+        $checkDeletion = LocationRepository::delete($location);
 
         if($checkDeletion === false)
         {
-            $response = new Response('There are other tables linked to the locations table.',403);
+            $response = new Response('There are other tables linked to the locations table.',500);
             $response->send();
             return;
         }
 
         $response = new Response('Location deleted',200);
-        $reponse->send();
+        $response->send();
 
     }
 
@@ -79,7 +71,7 @@ class LocationController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
 
-        $location = $this->locationRepo->readById($id);
+        $location = LocationRepository::readById($id);
 
         if($location === null)
         {
@@ -98,39 +90,21 @@ class LocationController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
         $name = $formData['name'];
-        $latitude = empty($formData['latitude']) ? null : floatval($formData['latitude']);
-        $longitude = empty($formData['longitude']) ? null : floatval($formData['longitude']);
-
-        if($latitude === null || $longitude === null)
-        {
-            $geopos = GeolocationApi::getGeopos($name);
-
-            if($geopos === null)
-            {
-                $response = new Response("API couldn't find city!",403);
-                $response -> send();
-                return;
-            }
-            
-            $latitude = $geopos['latitude'];
-            $longitude = $geopos['longitude'];
-        }
-        
+        $latitude = $formData['latitude'];
+        $longitude = $formData['longitude'];
 
         $location = Location::loadByParams($id,$name,$longitude,$latitude);
 
-        $checkUpdate = $this->locationRepo->update($location);
+        $checkUpdate = LocationRepository::update($location);
 
         if($checkUpdate === false)
         {
-            $response = new Response('Update failed',403);
+            $response = new Response('Update failed',500);
             $response->send();
             return;
         }
 
         $response = new Response('Update succesfully made.',200);
         $response->send();
-
     }
-
 }

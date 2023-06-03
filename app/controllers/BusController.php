@@ -11,7 +11,7 @@ class BusController extends Controller
     public function create()
     {
         $formData = $this->request->getData();
-        $nrSeats = intval($formData['nrSeats']);
+        $nrSeats = $formData['nrSeats'];
 
         $bus = new Bus(null,$nrSeats);
         $checkInsert = BusRepository::create($bus);

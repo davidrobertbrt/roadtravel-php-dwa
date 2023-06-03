@@ -7,7 +7,7 @@
         <div class = "container mt-4">
         <form id="ticket-form" method="POST" action="process">
             <div class="form-group">
-                <label for="location">Location:</label>
+                <label for="location">Departure:</label>
                 <select class="form-control" id="location" name="location" required>
                     <option value="">Select a location</option>
                 <?php
