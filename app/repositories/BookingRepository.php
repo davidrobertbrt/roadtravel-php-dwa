@@ -90,6 +90,35 @@ final class BookingRepository
         );
     }
 
+    public static function readByUser($userId)
+    {
+        $conn = DatabaseConnection::getConnection();
+        $table = self::getTableName();
+    
+        $stmt = $conn->prepare("SELECT * FROM {$table} WHERE userId = :userId");
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $resultDb = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $list = array();
+    
+        foreach ($resultDb as $result) {
+            $id = intval($result['id']);
+            $tripId = intval($result['tripId']);
+            $userId = intval($result['userId']);
+            $numOfPersons = intval($result['numOfPersons']);
+            $price = floatval($result['price']);
+            $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s', $result['datePurchase']);
+    
+            $list[$id] = new Booking(
+                $id, $tripId, $userId, $numOfPersons, $price, $datePurchase
+            );
+        }
+    
+        return $list ?? null;
+    }
+    
+
     public static function create(&$var)
     {
         if(!isset($var))

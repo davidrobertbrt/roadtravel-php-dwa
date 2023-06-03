@@ -33,8 +33,7 @@ final class UserRepository
         if(!is_array($resultDb))
             return null;
 
-        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s',$resultDb['dateOfBirth']);
-
+        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $resultDb['dateOfBirth'] . ' 00:00:00');
 
         return User::loadByParams
         (
@@ -63,7 +62,7 @@ final class UserRepository
         if(!is_array($resultDb))
             return null;
 
-        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s',$resultDb['dateOfBirth']);
+        $resultDb['dateOfBirth'] = DateTime::createFromFormat('Y-m-d H:i:s', $resultDb['dateOfBirth'] . ' 00:00:00');
 
 
         return User::loadByParams
