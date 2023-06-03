@@ -18,20 +18,11 @@ class TripController extends Controller
     public function create()
     {
         $formData = $this->request->getData();
-        $busId = intval($formData['busId']);
-        $departureId = intval($formData['departureId']);
-        $arrivalId = intval($formData['arrivalId']);
-        $dateTimeStart = DateTime::createFromFormat('Y-m-d\TH:i',$formData['dateTimeStart']);
-        $dateTimeEnd = DateTime::createFromFormat('Y-m-d\TH:i',$formData['dateTimeEnd']);
-
-        if($departureId === $arrivalId)
-            return;
-
-        if($dateTimeStart === $dateTimeEnd)
-            return;
-
-        if($dateTimeStart > $dateTimeEnd)
-            return;
+        $busId = $formData['busId'];
+        $departureId = $formData['departureId'];
+        $arrivalId = $formData['arrivalId'];
+        $dateTimeStart = $formData['dateTimeStart'];
+        $dateTimeEnd = $formData['dateTimeEnd'];
 
         $trip = new Trip(null,$busId,$departureId,$arrivalId,$dateTimeStart,$dateTimeEnd);            
 
@@ -51,7 +42,7 @@ class TripController extends Controller
     public function delete()
     {
         $formData = $this->request->getData();
-        $id = intval($formData['id']);
+        $id = $formData['id'];
 
         $trip = $this->viewData['tripRepo'][$id];
         
@@ -59,7 +50,7 @@ class TripController extends Controller
 
         if($checkDelete === false)
         {
-            $res = new Response('Failure at delete',403);
+            $res = new Response('Failure at delete',500);
             $res->send();
             exit();
         }
@@ -72,23 +63,31 @@ class TripController extends Controller
     public function edit()
     {
         $formData = $this->request->getData();
-        $id = intval($formData['id']);
+        $id = $formData['id'];
         $trip = $this->viewData['tripRepo'][$id];
 
-        $this->viewData['crTrip'] = $trip;
-        $this->render('TripEdit',$this->viewData);
+        if(isset($trip) && !empty($trip))
+        {
+            $this->viewData['crTrip'] = $trip;
+            $this->render('TripEdit',$this->viewData);
+            return;
+        }
+
+        $res = new Response("Error at reading trip",500);
+        $res->send();
+        exit();
     }
 
     public function process()
     {
         $formData = $this->request->getData();
-        var_dump($formData);
-        $id = intval($formData['id']);
-        $busId = intval($formData['busId']);
-        $departureId = intval($formData['departureId']);
-        $arrivalId = intval($formData['arrivalId']);
-        $dateTimeStart = DateTime::createFromFormat('Y-m-d\TH:i',$formData['dateTimeStart']);
-        $dateTimeEnd = DateTime::createFromFormat('Y-m-d\TH:i',$formData['dateTimeEnd']);
+
+        $id = $formData['id'];
+        $busId = $formData['busId'];
+        $departureId = $formData['departureId'];
+        $arrivalId = $formData['arrivalId'];
+        $dateTimeStart = $formData['dateTimeStart'];
+        $dateTimeEnd = $formData['dateTimeEnd'];
 
         $trip = $this->viewData['tripRepo'][$id];
         $trip->setBusId($busId);
@@ -101,7 +100,7 @@ class TripController extends Controller
 
         if($checkUpdate === false)
         {
-            $res = new Response('Failure at update',403);
+            $res = new Response('Failure at update',500);
             $res->send();
             exit();
         }

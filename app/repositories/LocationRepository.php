@@ -84,7 +84,7 @@ final class LocationRepository{
         $checkLocation = self::readByName($properties['name']);
 
         if(isset($checkLocation))
-            return null;
+            return false;
 
         $placeholders = implode(',', array_fill(0, count($values), '?'));
 

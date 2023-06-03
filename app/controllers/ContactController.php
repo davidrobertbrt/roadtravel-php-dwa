@@ -12,10 +12,6 @@ class ContactController extends Controller
         $emailSender = EmailSender::getInstance();
         $formData = $this->request->getData();
 
-        $name    = $formData['name'] ?? '';
-        $subject = $formData['subject'] ?? '';
-        $message = $formData['message'] ?? '';
-
         $body = <<<EOT
         <h2>AerialTravel</h2>
         <h2>Un nou mesaj a fost primit:</h2>

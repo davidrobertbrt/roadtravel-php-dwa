@@ -14,42 +14,6 @@ class BookingController extends Controller
         $this->render('BookingIndex',$this->viewData);
     }
 
-    //API call through ajax
-    public function fetchAvailableTrips()
-    {
-        $formData = $this->request->getData();
-        $locationId = intval($formData['location']);
-        $date = $formData['date'];
-        $time = $formData['time'];
-        $formatDateTime = ($date.' '.$time);
-        $dateTime = DateTime::createFromFormat('Y-m-d G:i',$formatDateTime);
-
-        $tripList = TripRepository::fetchAvailable($locationId,$dateTime);
-
-        if($tripList === null || empty($tripList))
-        {
-            echo "<option value=''>No trips available</option>";
-            return;
-        }
-
-        $options = "<option value=''>Select a trip</option>";
-        foreach($tripList as $trip)
-        {
-            //"LocationStart: DateTimeStart -- LocationEnd: DateTimeEnd "
-            $tripId = $trip->getId();
-            $departure = $this->viewData['locationRepo'][$trip->getLocationStartId()]->getName();
-            $arrival = $this->viewData['locationRepo'][$trip->getLocationEndId()]->getName();
-            $dateTimeStart = $trip->getDateTimeStart();
-            $dateTimeEnd = $trip->getDateTimeEnd();
-            $optionString = "{$departure}: {$dateTimeStart} -- {$arrival}: {$dateTimeEnd}";
-
-            $options .= "<option value='$tripId'>$optionString</option>";
-        }
-
-        echo $options;
-        return;
-    }
-
     public function process()
     {
         $formData = $this->request->getData();
@@ -60,10 +24,7 @@ class BookingController extends Controller
 
         //if the discount is specified we will retrieve it.
         if(!empty($discountId))
-        {
-            $discountId = intval($discountId);
             $discount = DiscountRepository::readById($discountId);
-        }
 
         $trip = TripRepository::readById($tripId);
         $departureId = $trip->getLocationStartId();
@@ -77,9 +38,6 @@ class BookingController extends Controller
         if(isset($discount))
             $price -= ($price * $discount->getFactor());
 
-        $datePurchase = new DateTime();
-        $datePurchase = $datePurchase->format('Y-m-d H:i:s');
-
         $checkBooking = BookingRepository::readByUserTrip($userId,$tripId);
 
         if(isset($checkBooking))
@@ -88,6 +46,9 @@ class BookingController extends Controller
             $response->send();
             exit();
         }
+
+        $datePurchase = new DateTime();
+        $datePurchase = $datePurchase->format('Y-m-d H:i:s');
         
         $booking = new Booking(null,$tripId,$userId,$numOfPersons,$price,$datePurchase);
 
@@ -189,5 +150,41 @@ class BookingController extends Controller
 
         // Output the PDF
         $pdf->Output();
+    }
+
+    //API call through ajax
+    public function fetchAvailableTrips()
+    {
+        $formData = $this->request->getData();
+        // conversion should be made in the middleware
+        $locationId = $formData['location']; 
+        $date = $formData['date'];
+        $time = $formData['time'];
+        $formatDateTime = ($date.' '.$time);
+        $dateTime = DateTime::createFromFormat('Y-m-d G:i',$formatDateTime);
+
+        $tripList = TripRepository::fetchAvailable($locationId,$dateTime);
+
+        if($tripList === null || empty($tripList))
+        {
+            echo "<option value=''>No trips available</option>";
+            return;
+        }
+
+        $options = "<option value=''>Select a trip</option>";
+        foreach($tripList as $trip)
+        {
+            //"LocationStart: DateTimeStart -- LocationEnd: DateTimeEnd "
+            $tripId = $trip->getId();
+            $departure = $this->viewData['locationRepo'][$trip->getLocationStartId()]->getName();
+            $arrival = $this->viewData['locationRepo'][$trip->getLocationEndId()]->getName();
+            $dateTimeStart = $trip->getDateTimeStart();
+            $dateTimeEnd = $trip->getDateTimeEnd();
+            $optionString = "{$departure}: {$dateTimeStart} -- {$arrival}: {$dateTimeEnd}";
+
+            $options .= "<option value='$tripId'>$optionString</option>";
+        }
+
+        echo $options;
     }
 }

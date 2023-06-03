@@ -12,12 +12,15 @@ final class FormParse implements Middleware
     public function __invoke($req)
     {
         $descriptor = $req->getDescriptor();
-        $rulesTable = require_once '../app/config/Forms.php';
+        $rulesTable = require_once '../app/config/FormRules.php';
 
         $rules = $rulesTable[$descriptor] ?? [];
 
         $values = $req->getData();
 
+        if(empty($values))
+            return $req;
+    
         if(empty($rules))
         {
             $res = new Response('Error at validation',500);
@@ -52,6 +55,18 @@ final class FormParse implements Middleware
                         $sanitizedValue = $this->sanitizeText($value);
                     case 'phone':
                         $sanitizedValue = $this->sanitizePhoneNumber($value);
+                        break;
+                    case 'range':
+                        $sanitizedValue = $this->sanitizeRange($value);
+                        break;
+                    case 'checkbox':
+                        $sanitizedValue = $this->sanitizeCheckbox($value);
+                        break;
+                    case 'date':
+                        $sanitizedValue = $this->sanitizeDate($value);
+                        break;
+                    case 'time':
+                        $sanitizedValue = $this->sanitizeTime($value);
                         break;
                     default:
                         break;
@@ -101,6 +116,17 @@ final class FormParse implements Middleware
                 return !empty($value);
             case 'phone':
                 return preg_match('/\d{12}/', $value);
+            case 'range':
+                return filter_var($value, FILTER_VALIDATE_FLOAT);
+            case 'checkbox':
+                return empty($value);
+                break;
+            case 'date':
+                return DateTime::createFromFormat('Y-m-d', $value) !== false;
+                break;
+            case 'time':
+                return DateTime::createFromFormat('H:i', $value) !== false;
+                break;
             default:
                 return false;
         }
@@ -141,6 +167,32 @@ final class FormParse implements Middleware
         $password = trim($password);
 
         return $password;
+    }
+
+    private function sanitizeRange($range)
+    {
+        $sanitizedValue = filter_var($range, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+
+        return floatval($sanitizedValue);
+    }
+
+    private function sanitizeCheckbox($input)
+    {
+        return isset($input);
+    }
+
+    private function sanitizeDate($date)
+    {
+        $dateObj = DateTime::createFromFormat('Y-m-d', $date);
+
+        return $dateObj->format('Y-m-d');
+    }
+
+    private function sanitizeTime($time)
+    {
+        $timeObj = DateTime::createFromFormat('H:i', $time);
+
+        return $timeObj->format('H:i');
     }
 
 }

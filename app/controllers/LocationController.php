@@ -21,20 +21,13 @@ class LocationController extends Controller
         $formData = $this->request->getData();
 
         $name = $formData['name'];
-        $latitude = empty($formData['latitude']) ? null : floatval($formData['latitude']);
-        $longitude = empty($formData['longitude']) ? null : floatval($formData['longitude']);
-
-        if($latitude === null || $longitude === null)
-        {
-            $geopos = GeolocationApi::getGeopos($name);
-            $latitude = $geopos['latitude'];
-            $longitude = $geopos['longitude'];
-        }
+        $latitude = $formData['latitude'];
+        $longitude = $formData['longitude'];
 
         $locationInsert = Location::loadByParams(null,$name,$longitude,$latitude);
-        $idInsert = LocationRepository::create($locationInsert);
+        $checkInsert = LocationRepository::create($locationInsert);
 
-        if($idInsert === null)
+        if($checkInsert === false)
         {
             $request = new Response('The location already exists!',403);
             $request->send();
@@ -63,7 +56,7 @@ class LocationController extends Controller
 
         if($checkDeletion === false)
         {
-            $response = new Response('There are other tables linked to the locations table.',403);
+            $response = new Response('There are other tables linked to the locations table.',500);
             $response->send();
             return;
         }
@@ -97,24 +90,8 @@ class LocationController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
         $name = $formData['name'];
-        $latitude = empty($formData['latitude']) ? null : floatval($formData['latitude']);
-        $longitude = empty($formData['longitude']) ? null : floatval($formData['longitude']);
-
-        if($latitude === null || $longitude === null)
-        {
-            $geopos = GeolocationApi::getGeopos($name);
-
-            if($geopos === null)
-            {
-                $response = new Response("API couldn't find city!",403);
-                $response -> send();
-                return;
-            }
-            
-            $latitude = $geopos['latitude'];
-            $longitude = $geopos['longitude'];
-        }
-        
+        $latitude = $formData['latitude'];
+        $longitude = $formData['longitude'];
 
         $location = Location::loadByParams($id,$name,$longitude,$latitude);
 
@@ -122,14 +99,12 @@ class LocationController extends Controller
 
         if($checkUpdate === false)
         {
-            $response = new Response('Update failed',403);
+            $response = new Response('Update failed',500);
             $response->send();
             return;
         }
 
         $response = new Response('Update succesfully made.',200);
         $response->send();
-
     }
-
 }
