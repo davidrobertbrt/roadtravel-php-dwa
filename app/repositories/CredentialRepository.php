@@ -87,7 +87,7 @@ final class CredentialRepository
 
     public static function update($credential)
     {
-        if($user->getId() === null)
+        if($credential->getId() === null)
             return null;
 
         $id = $credential->getId();
