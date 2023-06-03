@@ -6,3 +6,7 @@
 			  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
 			  crossorigin="anonymous"></script>
 <script type="text/javascript" src="/roadtravel/public/js/bootstrap.min.js"></script>
+
+<?php
+	$urlPath = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
+?>
