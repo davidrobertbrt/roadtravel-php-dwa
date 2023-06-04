@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 03, 2023 at 11:31 PM
+-- Generation Time: Jun 04, 2023 at 07:40 PM
 -- Server version: 10.6.12-MariaDB-0ubuntu0.22.04.1
 -- PHP Version: 8.1.2-1ubuntu2.11
 
@@ -129,6 +129,41 @@ INSERT INTO `discounts` (`id`, `factor`, `used`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hits`
+--
+
+CREATE TABLE `hits` (
+  `id` int(11) NOT NULL,
+  `ip_address` varchar(256) DEFAULT NULL,
+  `timestamp` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hits`
+--
+
+INSERT INTO `hits` (`id`, `ip_address`, `timestamp`) VALUES
+(5, '192.168.0.1', '2023-06-01 09:15:00'),
+(6, '192.168.0.2', '2023-06-01 10:30:00'),
+(7, '192.168.0.3', '2023-06-01 12:45:00'),
+(8, '192.168.0.4', '2023-06-01 14:00:00'),
+(9, '192.168.0.5', '2023-06-01 15:30:00'),
+(10, '192.168.0.6', '2023-06-02 09:45:00'),
+(11, '192.168.0.7', '2023-06-02 11:00:00'),
+(12, '192.168.0.8', '2023-06-02 12:15:00'),
+(13, '192.168.0.9', '2023-06-02 14:30:00'),
+(14, '192.168.0.10', '2023-06-02 16:00:00'),
+(15, '192.168.0.11', '2023-06-03 10:15:00'),
+(16, '192.168.0.12', '2023-06-03 11:30:00'),
+(17, '192.168.0.13', '2023-06-03 13:45:00'),
+(18, '192.168.0.14', '2023-06-03 15:00:00'),
+(19, '192.168.0.15', '2023-06-03 16:30:00'),
+(20, '192.168.0.15', '2023-06-03 18:30:00'),
+(21, '::1', '2023-06-04 19:18:17');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locations`
 --
 
@@ -242,7 +277,7 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`
 (3, 'Maria', 'Georgescu', '1987-11-30', '0733998877', 'Piata Victoriei nr. 20, Timisoara', 'maria.georgescu@example.com'),
 (4, 'Alexandru', 'Dumitrescu', '2001-03-05', '0766123456', 'Strada Libertatii nr. 15, Iasi', 'alexandru.dumitrescu@example.com'),
 (5, 'Andreea', 'Stanescu', '1990-12-10', '0755778899', 'Aleea Magnoliei nr. 8, Constanta', 'andreea.stanescu@example.com'),
-(8, 'Doe', 'John', '2002-05-23', '0712345678', 'str. Exemplu nr. 50', 'john.doe@exemplu.ro'),
+(8, 'Johnny', 'Doe', '2000-05-23', '0726779004', 'bulevardul Unirii', 'john.doe@exemplu.ro'),
 (11, 'Mihai', 'Andries', '2000-05-23', '0711111', 'str. Exemplu nr.100', 'mihai.andries@exemplu.ro');
 
 --
@@ -274,6 +309,12 @@ ALTER TABLE `credentials`
 -- Indexes for table `discounts`
 --
 ALTER TABLE `discounts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hits`
+--
+ALTER TABLE `hits`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -328,6 +369,12 @@ ALTER TABLE `credentials`
 --
 ALTER TABLE `discounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `hits`
+--
+ALTER TABLE `hits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `locations`
