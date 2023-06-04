@@ -7,6 +7,8 @@
     <div class="container mt-4">
         <div class="container">
             <h3>Statistics of the website</h3>
+            <p>If no data present, please hit the refresh button.</p>
+            <?php if(isset($data['stats'])){?>
             <div class="row">
                 <div class="col-md-6">
                     <table class="table table-bordered">
@@ -16,31 +18,36 @@
                         </tr>
                         <tr>
                             <td>Total Hits</td>
-                            <td>111</td>
+                            <td><?php echo $data['stats']['totalHits'];?></td>
                         </tr>
                         <tr>
                             <td>Unique Visitors</td>
-                            <td>111</td>
+                            <td><?php echo $data['stats']['uniqueVisitors'];?></td>
                         </tr>
                         <tr>
                             <td>Mean Hits per Visitor</td>
-                            <td>111</td>
+                            <td><?php echo $data['stats']['meanHitsPerVisitor'];?></td>
                         </tr>
                         <tr>
                             <td>Maximum Hits per Day</td>
-                            <td>111</td>
+                            <td><?php echo $data['stats']['maxHitsPerDay'];?></td>
                         </tr>
                         <tr>
                             <td>Average Hits per Day</td>
-                            <td>111</td>
+                            <td><?php echo $data['stats']['averageHitsPerDay'];?></td>
                         </tr>
                         <tr>
                             <td>Standard Deviation of Hits per Day</td>
-                            <td>111</td>
+                            <td><?php echo $data['stats']['stdDevHitsPerDay'];?></td>
                         </tr>
                     </table>
-                    <button class="btn btn-primary" onclick="window.location.reload();">Refresh Statistics</button>
-                    <button class="btn btn-primary" onclick="window.print();">Print Statistics</button>
+                <?php }?>
+                    <form method = "GET" action = "generate">
+                        <button type="submit" class="btn btn-primary">Refresh Statistics</button>
+                    </form>
+                    <form method = "GET" action = "print">
+                        <button type="submit" class="btn btn-primary">Print Statistics</button>
+                    </form>
                 </div>
             </div>
         </div>

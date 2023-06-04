@@ -25,7 +25,9 @@ return array(
         'reset@confirm'=>array('controller'=>'SessionController','action'=>'formResetConfirm'),
         'tickets@index'=>array('controller'=>'TicketController','action'=>'index'),
         'user@index' => array('controller'=>'UserController','action'=>'index'),
-        'profile@index'=>array('controller'=>'ProfileController','action'=>'index')  
+        'profile@index'=>array('controller'=>'ProfileController','action'=>'index'),
+        'home@generate'=>array('controller'=>'HomeController','action'=>'getStatistics'),
+        'home@print'=>array('controller'=>'HomeController','action'=>'printStats')  
     ),
     'POST' => array(
         'login@process' => array('controller'=>'SessionController','action'=>'login'),
