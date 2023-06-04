@@ -5,7 +5,8 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $this->render("ProfileIndex");
+        $this->viewData['crUser'] = UserRepository::readById(intval($_SESSION['user']));
+        $this->render("ProfileIndex",$this->viewData);
     }
 
     public function submit()

@@ -7,6 +7,32 @@
         <div class = "container mt-4">
             <div class="container">
                 <h2>Editează profilul</h2>
+                <div class = "card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th>Nume</th>
+                            <th>Prenume</th>
+                            <th>Email</th>
+                            <th>Numar de telefon</th>
+                            <th>Adresa</th>
+                            <th>Data nasterii</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?php echo $data['crUser']->getFirstName();?></td>
+                                <td><?php echo $data['crUser']->getLastName();?></td>
+                                <td><?php echo $data['crUser']->getEmailAddress();?></td>
+                                <td><?php echo $data['crUser']->getPhoneNumber();?></td>
+                                <td><?php echo $data['crUser']->getAddress();?></td>
+                                <td><?php echo $data['crUser']->getDateOfBirth();?></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                </div>
+
+
                 <div class="card-body">
                     <form method = "POST" action = "submit">
                         <div class="form-row">
