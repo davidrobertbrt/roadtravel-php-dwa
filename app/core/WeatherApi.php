@@ -38,9 +38,11 @@ class WeatherApi
                 'code'=>$weatherEntry['weatherCode']
             );
         }
+
+        return $weather;
     }
 
-    public static function getWeatherCode($code)
+    private static function getWeatherCode($code)
     {
         switch ($code) {
             case 0:

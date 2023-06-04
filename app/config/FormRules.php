@@ -110,5 +110,16 @@ return array(
     ),
     'user@promote'=>array(
         'id'=>array('type'=>'integer','opt'=>false)
+    ),
+    'profile@submit'=>array(
+        'firstName'=>array('type'=>'text','opt'=>false),
+        'lastName'=>array('type'=>'text','opt'=>false),
+        'password'=>array('type'=>'password','opt'=>false),
+        'dateOfBirth'=>array('type'=>'datetime','opt'=>false),
+        'phoneNumber'=>array('type'=>'phone','opt'=>false),
+        'address'=>array('type'=>'text','opt'=>false)
+    ),
+    'home@fetchWeather'=>array(
+        'city'=>array('type'=>'text','opt'=>false)
     )
 );
