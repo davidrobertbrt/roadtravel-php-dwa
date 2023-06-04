@@ -35,7 +35,8 @@ final class TicketController extends Controller
                 exit();
             }
             $departureCity = LocationRepository::readById($trip->getLocationStartId())->getName();
-            $departureDate = LocationRepository::readById($trip->getLocationEndId())->getName();
+            $arrivalCity = LocationRepository::readById($trip->getLocationEndId())->getName();
+            $departureDate = $trip->getDateTimeStart();
             $arrivalDate = $trip->getDateTimeEnd();
             $noPersons = $value->getNumOfPersons();
 
