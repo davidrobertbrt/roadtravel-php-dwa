@@ -54,7 +54,7 @@ final class BookingRepository
         $userId = intval($resultDb['userId']);
         $numOfPersons = intval($resultDb['numOfPersons']);
         $price = floatval($resultDb['price']);
-        $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s',$result['datePurchase']);
+        $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s',$resultDb['datePurchase']);
         
 
         return new Booking(
