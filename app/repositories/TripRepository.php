@@ -75,6 +75,24 @@ final class TripRepository
         return $list ?? null;
     }
 
+    public static function checkAvailableSeats($tripId, $numOfSeats)
+    {
+        $conn = DatabaseConnection::getConnection();
+        $stmt = $conn->prepare("CALL CheckBookingAvailability(:tripId, :numOfSeats, @canBookResult)");
+
+        $stmt->bindParam(':tripId',$tripId,PDO::PARAM_INT);
+        $stmt->bindParam(':numOfSeats',$numOfSeats,PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $stmt = $conn->query("SELECT @canBookResult");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $canBook = $result['@canBookResult'];
+
+        return $canBook == 1;
+    }
+
     public static function readAll() {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
