@@ -42,17 +42,17 @@
                         </tr>
                     </table>
                 <?php }?>
-                    <form method = "GET" action = "generate">
+                    <form method = "GET" action = "<?php echo $urlPath . 'home/generate'?>">
                         <button type="submit" class="btn btn-primary">Refresh</button>
                     </form>
-                    <form method = "GET" action = "print">
+                    <form method = "GET" action = "<?php echo $urlPath . 'home/print'?>">
                         <button type="submit" class="btn btn-primary">Print</button>
                     </form>
                 </div>
             </div>
         </div>
         <div class="container">
-            <form id="weatherForm" class="mt-4" method = "POST" action = "fetchWeather">
+            <form id="weatherForm" class="mt-4" method = "POST" action = "<?php echo $urlPath . 'home/fetchWeather'?>">
                 <div class="form-group">
                     <label for="cityInput">Oraș:</label>
                     <input type="text" class="form-control" id="cityInput" placeholder="Introdu orașul" required name="city">
