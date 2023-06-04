@@ -33,10 +33,7 @@
                     <a class="nav-link" href="<?php echo $urlPath . 'user/index'?>">Utilizatori</a>
                 </li>
                 <li class="nav-item">
-
-                </li>
-                <li class="nav-item">
-                   
+                <a class="nav-link" href="<?php echo $urlPath . 'booth/index'?>">Booth</a>
                 </li>
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
