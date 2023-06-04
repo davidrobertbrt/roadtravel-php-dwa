@@ -15,33 +15,33 @@ class HitReport
 
         // Report title
         $this->pdf->SetFont('Arial', 'B', 14);
-        $this->pdf->Cell(0, 10, 'Hits Statistics Summary', 0, 1, 'L');
+        $this->pdf->Cell(0, 10, 'Statistica accesari', 0, 1, 'L');
         $this->pdf->Ln(10);
 
         // Statistics table
         $this->pdf->SetFont('Arial', 'B', 12);
         $cellPadding = 2;
-        $this->pdf->Cell(40, 10, 'Statistic', 1, 0, 'L', false, '', 0, $cellPadding);
-        $this->pdf->Cell(60, 10, 'Value', 1, 1, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Statistica', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(60, 10, 'Valoare', 1, 1, 'L', false, '', 0, $cellPadding);
         $this->pdf->SetFont('Arial', '', 12);
 
-        $this->pdf->Cell(40, 10, 'Total Hits', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Total accesari', 1, 0, 'L', false, '', 0, $cellPadding);
         $this->pdf->Cell(60, 10, $stats['totalHits'], 1, 1, 'L', false, '', 0, $cellPadding);
-        $this->pdf->Cell(40, 10, 'Unique Visitors', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Vizitatori unici', 1, 0, 'L', false, '', 0, $cellPadding);
         $this->pdf->Cell(60, 10, $stats['uniqueVisitors'], 1, 1, 'L', false, '', 0, $cellPadding);
-        $this->pdf->Cell(40, 10, 'Mean Hits per Visitor', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Medie acc. viz.', 1, 0, 'L', false, '', 0, $cellPadding);
         $this->pdf->Cell(60, 10, $stats['meanHitsPerVisitor'], 1, 1, 'L', false, '', 0, $cellPadding);
-        $this->pdf->Cell(40, 10, 'Maximum Hits per Day', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Max acc. pe zi', 1, 0, 'L', false, '', 0, $cellPadding);
         $this->pdf->Cell(60, 10, $stats['maxHitsPerDay'], 1, 1, 'L', false, '', 0, $cellPadding);
-        $this->pdf->Cell(40, 10, 'Average Hits per Day', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Medie acc. pe zi', 1, 0, 'L', false, '', 0, $cellPadding);
         $this->pdf->Cell(60, 10, $stats['averageHitsPerDay'], 1, 1, 'L', false, '', 0, $cellPadding);
-        $this->pdf->Cell(40, 10, 'Standard Deviation', 1, 0, 'L', false, '', 0, $cellPadding);
+        $this->pdf->Cell(40, 10, 'Deviatie std.', 1, 0, 'L', false, '', 0, $cellPadding);
         $this->pdf->Cell(60, 10, $stats['stdDevHitsPerDay'], 1, 1, 'L', false, '', 0, $cellPadding);
         $this->pdf->Ln(10);
 
         // Generate the graph
         $this->pdf->SetFont('Arial', 'B', 14);
-        $this->pdf->Cell(0, 10, 'Hits per Day', 0, 1, 'L');
+        $this->pdf->Cell(0, 10, 'Accesari pe zi', 0, 1, 'L');
         
         $graphWidth = 160;
         $graphHeight = 80;

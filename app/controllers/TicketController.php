@@ -89,7 +89,7 @@ final class TicketController extends Controller
         $lastName = $user->getLastName();
         $address = $user->getAddress();
         $email = $user->getEmailAddress();
-        $dateOfBirth = $user->getDateOfBirth()->format("Y-m-d");
+        $dateOfBirth = $user->getDateOfBirth();
         $phoneNumber = $user->getPhoneNumber();
 
         // Ticket details
@@ -108,11 +108,11 @@ final class TicketController extends Controller
 
         // Set font and size for the title
         $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Cell(0, 10, 'Bus Ticket', 0, 1, 'C');
+        $pdf->Cell(0, 10, 'Bilet pentru autobuz', 0, 1, 'C');
 
         // Set font and size for the ticket ID
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 10, 'Ticket ID: ' . $ticketId, 0, 1, 'C');
+        $pdf->Cell(0, 10, 'Cod bilet: ' . $ticketId, 0, 1, 'C');
 
         // Add line breaks
         $pdf->Ln(10);
@@ -121,40 +121,40 @@ final class TicketController extends Controller
         $pdf->SetFont('Arial', 'B', 12);
 
         // Print trip information
-        $pdf->Cell(0, 10, 'Trip Information', 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Informatii calatorie', 0, 1, 'L');
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 10, 'Destination: ' . $destination, 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Arrival Date: ' . $arrivalDate, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Destinatie: ' . $destination, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Data sosirii: ' . $arrivalDate, 0, 1, 'L');
 
         // Add line breaks
         $pdf->Ln(10);
 
         // Print user information
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 10, 'User Information', 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Informatii despre client', 0, 1, 'L');
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 10, 'Name: ' . $firstName . ' ' . $lastName, 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Address: ' . $address, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Nume: ' . $firstName . ' ' . $lastName, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Adresa: ' . $address, 0, 1, 'L');
         $pdf->Cell(0, 10, 'Email: ' . $email, 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Date of Birth: ' . $dateOfBirth, 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Phone Number: ' . $phoneNumber, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Data nasterii: ' . $dateOfBirth, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Numar de telefon: ' . $phoneNumber, 0, 1, 'L');
 
         // Add line breaks
         $pdf->Ln(10);
 
         // Print ticket details
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 10, 'Ticket Details', 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Detalii bilet', 0, 1, 'L');
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 10, 'Price: ' . $price, 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Purchase Date: ' . $purchaseDate, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Pret: ' . $price, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Data cumpararii: ' . $purchaseDate->format('Y-m-d'), 0, 1, 'L');
 
         // Add line breaks
         $pdf->Ln(10);
 
         // Print bus ID
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 10, 'Bus ID: ' . $busNo, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Cod autobuz: ' . $busNo, 0, 1, 'L');
 
         // Output the PDF
         $pdf->Output();

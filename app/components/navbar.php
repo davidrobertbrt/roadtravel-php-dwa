@@ -44,8 +44,8 @@
                     Conectat ca <?php echo $_SESSION['email']?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?php echo $urlPath . 'profile/index'?>">Edit profile</a>
-                        <a class="dropdown-item" href="<?php echo $urlPath . 'logout/process'?>">Disconnect</a>
+                        <a class="dropdown-item" href="<?php echo $urlPath . 'profile/index'?>">Editare profil</a>
+                        <a class="dropdown-item" href="<?php echo $urlPath . 'logout/process'?>">Deconectare</a>
                     </div>
                 </li>
                 </ul>
