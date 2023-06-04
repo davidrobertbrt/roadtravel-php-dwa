@@ -27,6 +27,14 @@ class BookingController extends Controller
             $discount = DiscountRepository::readById($discountId);
 
         $trip = TripRepository::readById($tripId);
+
+        if($trip === null)
+        {
+            $response = new Response("There is no trip with that id",403);
+            $response->send();
+            exit();
+        }
+
         $departureId = $trip->getLocationStartId();
         $arrivalId = $trip->getLocationEndId();
 
@@ -36,8 +44,17 @@ class BookingController extends Controller
         $distance = GeolocationApi::calculateDistance($departure->getGeopos(),$arrival->getGeopos());
         $price = 2.3 * $distance * intval($numOfPersons);
 
-        if(isset($discount))
-            $price -= ($price * $discount->getFactor());
+        if(!empty($discountId))
+        {
+            if(isset($discount))
+              $price -= ($price * $discount->getFactor());
+            else
+            {
+                $response = new Response('Discount does not exist',403);
+                $response->send();
+                return;
+            }
+        }
 
         $checkBooking = BookingRepository::readByUserTrip($userId,$tripId);
 

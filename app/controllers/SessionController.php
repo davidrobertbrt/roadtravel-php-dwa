@@ -84,7 +84,6 @@ final class SessionController extends Controller{
         $formData = $this->request->getData();
         $resetCode = $formData[0];
 
-        // this code should be moved in a middleware
         if(!isset($_SESSION['reset']))
         {
             $response = new Response("Error",500);
@@ -98,7 +97,6 @@ final class SessionController extends Controller{
             $response->send();
             exit();
         }
-        /////// ends here
         
         $this->render('ResetConfirm');
 
@@ -107,7 +105,7 @@ final class SessionController extends Controller{
     public function resetProcess()
     {
         $formData = $this->request->getData();
-        // this code should be moved in a middleware
+
         if(!isset($_SESSION['reset']))
         {
             $response = new Response("Error",500);

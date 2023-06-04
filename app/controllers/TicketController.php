@@ -26,11 +26,16 @@ final class TicketController extends Controller
         foreach($bookings as $key => $value)
         {
             $id = $value->getId();
-            $trip = $this->tripRepo[$value->getTripId()];
+            $trip = TripRepository::readById($value->getTripId());
 
-            $departureCity = $this->locationRepo[$trip->getLocationStartId()]->getName();
-            $arrivalCity = $this->locationRepo[$trip->getLocationEndId()]->getName();
-            $departureDate = $trip->getDateTimeStart();
+            if($trip === null)
+            {
+                $res = new Response('There is no trip with that ID!',403);
+                $res->send();
+                exit();
+            }
+            $departureCity = LocationRepository::readById($trip->getLocationStartId())->getName();
+            $departureDate = LocationRepository::readById($trip->getLocationEndId())->getName();
             $arrivalDate = $trip->getDateTimeEnd();
             $noPersons = $value->getNumOfPersons();
 
@@ -54,15 +59,21 @@ final class TicketController extends Controller
         $formData = $this->request->getData();
 
         $bookingId = $formData['id'];
-        $booking =  $this->bookingRepo[$bookingId];
+        $booking = BookingRepository::readById($bookingId);
+
+        if($booking === null)
+        {
+            $res = new Response('There is no booking with that ID!',403);
+            $res->send();
+            exit();
+        }
 
         $tripId = $booking->getTripId();
         $userId = $booking->getUserId();
         
-        $trip = $this->tripRepo[$tripId];
+        $trip = TripRepository::readById($tripId);
         $user = UserRepository::readById($userId);
 
-        
     
         if(isset($trip) && isset($booking) && isset($user))
             $this->print($booking,$trip,$user);

@@ -38,6 +38,16 @@ class DiscountController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
 
+
+        $discount = DiscountRepository::readById($id);
+
+        if($discount === null)
+        {
+            $res = new Response('There is no discount with that with that ID!',403);
+            $res->send();
+            exit();
+        }
+
         $checkDelete = DiscountRepository::delete($this->viewData['discountRepo'][$id]);
         
         if($checkDelete === false)

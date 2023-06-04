@@ -32,6 +32,22 @@ class BusController extends Controller
         $id = $formData['id'];
         $bus = BusRepository::readById($id);
 
+        if($bus === null)
+        {
+            $response = new Response("There is no bus with that id",500);
+            $response->send();
+            exit();
+        }
+
+        $countTrips = TripRepository::countByBus($bus->getId());
+
+        if($countTrips > 0)
+        {
+            $response = new Response("There are trips associated with this bus!",500);
+            $response->send();
+            exit();
+        }
+
         $checkDelete = BusRepository::delete($bus);
         if($checkDelete === false)
         {
@@ -60,6 +76,20 @@ class BusController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
         $nrSeats = $formData['nrSeats'];
+
+        if(BusRepository::readById($id) === null)
+        {
+            $response = new Response("There is no bus with that id",500);
+            $response->send();
+            exit();
+        }
+
+        if(BusRepository::checkNewSeats($id,$nrSeats) === false)
+        {
+            $response = new Response("Bookings are not valid for the number of seats provided!",403);
+            $response->send();
+            exit();   
+        }
 
         $bus = new Bus($id,$nrSeats);
         $bus->setNrSeats($nrSeats);
