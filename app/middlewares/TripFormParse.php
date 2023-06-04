@@ -14,22 +14,19 @@ final class TripFormParse implements Middleware
         if($departureId === $arrivalId)
         {
             $res = new Response("The arrival and departure are the same!",403);
-            $res->send();
-            die();
+            return $res;
         }
 
         if($dateTimeStart === $dateTimeEnd)
         {
             $res = new Response("The arrival and departure are the same!",403);
-            $res->send();
-            die();
+            return $res;
         }
 
         if($dateTimeStart > $dateTimeEnd)
         {
             $res = new Response("The date of the start is in future than the date of the end",403);
-            $res->send();
-            die();
+            return $res;
         }
 
         $formData['dateTimeStart'] = $dateTimeStart;

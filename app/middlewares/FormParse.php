@@ -82,8 +82,7 @@ final class FormParse implements Middleware
                 if(!$isValid)
                 {
                     $res = new Response('Error at validation',403);
-                    $res->send();
-                    die();
+                    return $res;
                 }
 
                 $values[$inputName] = $sanitizedValue;
@@ -92,8 +91,7 @@ final class FormParse implements Middleware
             {
                 if(!$isOpt){
                     $res = new Response('Required field is not filled',403);
-                    $res->send();
-                    die();
+                    return $res;
                 }
             }
         }
