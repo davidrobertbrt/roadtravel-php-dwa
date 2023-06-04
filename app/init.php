@@ -30,6 +30,7 @@ require_once 'repositories/TripRepository.php';
 require_once 'repositories/DiscountRepository.php';
 require_once 'repositories/BookingRepository.php';
 require_once 'repositories/RoleRepository.php';
+require_once 'repositories/StatisticsRepository.php';
 
 require_once 'vendor/fpdf/fpdf.php';
 

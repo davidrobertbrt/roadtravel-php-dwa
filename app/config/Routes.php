@@ -24,7 +24,10 @@ return array(
         'reset@index'=>array('controller'=>'SessionController','action'=>'formReset'),
         'reset@confirm'=>array('controller'=>'SessionController','action'=>'formResetConfirm'),
         'tickets@index'=>array('controller'=>'TicketController','action'=>'index'),
-        'user@index' => array('controller'=>'UserController','action'=>'index')  
+        'user@index' => array('controller'=>'UserController','action'=>'index'),
+        'profile@index'=>array('controller'=>'ProfileController','action'=>'index'),
+        'home@generate'=>array('controller'=>'HomeController','action'=>'getStatistics'),
+        'home@print'=>array('controller'=>'HomeController','action'=>'printStats')  
     ),
     'POST' => array(
         'login@process' => array('controller'=>'SessionController','action'=>'login'),
@@ -51,6 +54,8 @@ return array(
         'reset@send'=>array('controller'=>'SessionController','action'=>'formResetSend'),
         'reset@process'=>array('controller'=>'SessionController','action'=>'resetProcess'),
         'tickets@generate'=>array('controller'=>'TicketController','action'=>'generate'),
-        'user@promote'=>array('controller'=>'UserController','action'=>'promote')
+        'user@promote'=>array('controller'=>'UserController','action'=>'promote'),
+        'profile@submit'=>array('controller'=>'ProfileController','action'=>'submit'),
+        'home@fetchWeather'=>array('controller'=>'HomeController','action'=>'fetchWeather')
     ),
 );
