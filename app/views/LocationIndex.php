@@ -6,7 +6,7 @@
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
         <div class="container">
-            <h2>Create a new location</h2>
+            <h2>Adaugă un nou oraș</h2>
                     <form method="POST" action="create">
                         <div class="form-group">
                             <label for="name">Name:</label>

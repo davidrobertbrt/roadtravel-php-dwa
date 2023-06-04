@@ -5,7 +5,7 @@
     <body>
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
-           <h2>My tickets</h2>
+           <h2>Biletele mele</h2>
             <?php
                 if(empty($data['results']))
                 {

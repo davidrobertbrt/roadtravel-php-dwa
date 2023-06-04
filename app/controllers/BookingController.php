@@ -80,11 +80,11 @@ class BookingController extends Controller
 
         if($tripList === null || empty($tripList))
         {
-            echo "<option value=''>No trips available</option>";
+            echo "<option value=''>Nicio calatorie disponibila</option>";
             return;
         }
 
-        $options = "<option value=''>Select a trip</option>";
+        $options = "<option value=''>Alege o ruta</option>";
         foreach($tripList as $trip)
         {
             //"LocationStart: DateTimeStart -- LocationEnd: DateTimeEnd "

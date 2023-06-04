@@ -58,7 +58,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                <h2>Schedule</h2>
+                <h2>Program</h2>
                 <table class="table">
                     <thead>
                         <tr>

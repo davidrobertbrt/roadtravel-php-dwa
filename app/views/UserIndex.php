@@ -5,7 +5,7 @@
     <body>
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
-            <h2>Users</h2>
+            <h2>Utilizatori</h2>
             <table>
                 <thead>
                     <tr>
