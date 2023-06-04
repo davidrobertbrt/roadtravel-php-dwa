@@ -18,12 +18,12 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Departure</th>
-                        <th>Arrival</th>
-                        <th>Date Departure</th>
-                        <th>Date Arrival</th>
-                        <th>No. of persons</th>
-                        <th>Actions</th>
+                        <th>Plecare</th>
+                        <th>Sosire</th>
+                        <th>Dată plecare</th>
+                        <th>Dată sosire</th>
+                        <th>Număr persoane</th>
+                        <th>Acțiuni</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -5,8 +5,8 @@
     <body>
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
-        <h2>Edit the trip</h2>
-        <p>Setting the trip in the past will make it unavailable.</p>
+        <h2>Editează o călatorie</h2>
+        <p>Dacă setezi data de plecare mai devreme, aceasta va fi anulată!</p>
         <form method = "POST" action="process">
                     <div class="form-group">
                         <input type="hidden" name="id" value="<?php echo $data['crTrip']->getId(); ?>">

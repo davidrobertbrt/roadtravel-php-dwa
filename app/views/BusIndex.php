@@ -6,10 +6,10 @@
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
         <div class="container">
-            <h2>Create a new bus</h2>
+            <h2>Adaugă un nou autobuz</h2>
                     <form method="POST" action="create">
                         <div class="form-group">
-                            <label for="nrSeats">Nr. seats:</label>
+                            <label for="nrSeats">Număr locuri:</label>
                             <input type="text" class="form-control" id="nrSeats" placeholder="Enter number of seats" name="nrSeats">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -20,8 +20,8 @@
                     <thead>
                         <tr>
                         <th>ID</th>
-                        <th>Nr. seats</th>
-                        <th>Actions</th>
+                        <th>Locuri</th>
+                        <th>Acțiuni</th>
                         </tr>
                     </thead>
                     <?php

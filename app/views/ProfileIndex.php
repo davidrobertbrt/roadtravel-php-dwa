@@ -6,7 +6,7 @@
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
             <div class="container">
-                <h2>Edit your profile</h2>
+                <h2>Editează profilul</h2>
                 <div class="card-body">
                     <form method = "POST" action = "submit">
                         <div class="form-row">

@@ -17,12 +17,12 @@
                         <input type="hidden" value="<?php echo $id; ?>" name="id">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="usedCheckbox" name="used" <?php if ($used) echo 'checked'; ?>>
-                            <label class="form-check-label" for="usedCheckbox">Mark it as used</label>
+                            <label class="form-check-label" for="usedCheckbox">Marchează ca folosit</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="discountFactor">Discount factor</label>
-                        <input type="range" class="form-range" id="discountFactor" placeholder="Enter discount factor" name="factor" min="0" max="1" step="0.1" value="<?php echo $val; ?>">
+                        <label for="discountFactor">Factor reducere</label>
+                        <input type="range" class="form-range" id="discountFactor" placeholder="Factor reducere" name="factor" min="0" max="1" step="0.1" value="<?php echo $val; ?>">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

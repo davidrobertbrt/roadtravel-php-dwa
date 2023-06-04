@@ -6,11 +6,11 @@
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4">
         <div class="container">
-            <h2>Create a new discount coupon</h2>
+            <h2>Realizează un nou cupon</h2>
                     <form method="POST" action="create">
                         <div class="form-group">
-                            <label for="discountFactor">Discount factor</label>
-                            <input type="range" class="form-range" id="discountFactor" placeholder="Enter discount factor" name="discountFactor" min="0" max = "1" step="0.1">
+                            <label for="discountFactor">Factor reducere</label>
+                            <input type="range" class="form-range" id="discountFactor" placeholder="Introdu factorul" name="discountFactor" min="0" max = "1" step="0.1">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -20,9 +20,9 @@
                     <thead>
                         <tr>
                         <th>ID</th>
-                        <th>Discount factor</th>
-                        <th>Used</th>
-                        <th>Actions</th>
+                        <th>Factor reducere</th>
+                        <th>Folosit</th>
+                        <th>Acțiuni</th>
                         </tr>
                     </thead>
                     <?php

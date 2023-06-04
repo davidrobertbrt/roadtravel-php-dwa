@@ -10,13 +10,13 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Nume</th>
                         <th>Email</th>
-                        <th>Address</th>
-                        <th>Phone number</th>
-                        <th>Date of birth</th>
-                        <th>Role</th>
-                        <th>Action</th>
+                        <th>Adresă</th>
+                        <th>Număr telefon</th>
+                        <th>Data nașterii</th>
+                        <th>Rol</th>
+                        <th>Acțiune</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
                             <form action="promote" method="POST" class="inline-form">
                                 <input type="hidden" name="id" value="<?php echo $result['id'];?>">
                                 <!-- Include other fields for editing -->
-                                <button type="submit" class="btn btn-primary">Promote</button>
+                                <button type="submit" class="btn btn-primary">Promovează</button>
                             </form>
                             <?php }?>
                         </td>
