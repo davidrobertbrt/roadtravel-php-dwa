@@ -9,28 +9,28 @@
                     <a class="nav-link" href="<?php echo $urlPath . 'home/index'?>">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'booking/index'?>">Booking</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'booking/index'?>">Planificare</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'tickets/index'?>">Tickets</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'tickets/index'?>">Bilete</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'bus/index'?>">Bus list</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'bus/index'?>">Autobuze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'trip/index'?>">Trip</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'trip/index'?>">Călătorii</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'discount/index'?>">Discounts</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'discount/index'?>">Reduceri</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'location/index'?>">Locations</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'location/index'?>">Locații</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'contact/index'?>">Contact</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'contact/index'?>">Contactare</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $urlPath . 'user/index'?>">Users</a>
+                    <a class="nav-link" href="<?php echo $urlPath . 'user/index'?>">Utilizatori</a>
                 </li>
                 <li class="nav-item">
 
