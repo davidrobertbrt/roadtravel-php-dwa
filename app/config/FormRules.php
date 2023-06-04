@@ -121,5 +121,8 @@ return array(
     ),
     'home@fetchWeather'=>array(
         'city'=>array('type'=>'text','opt'=>false)
+    ),
+    'booth@delete'=>array(
+        'id'=>array('type'=>'integer','opt'=>false)
     )
 );

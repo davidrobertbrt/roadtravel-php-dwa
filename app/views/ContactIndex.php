@@ -10,9 +10,9 @@
                 <div class="col-md-6">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Contact Information</h5>
+                        <h5 class="card-title">Informații de contact</h5>
                         <p><strong>Phone:</strong> +1 123-456-7890</p>
-                        <p><strong>Address:</strong> 123 Main St, City, Country</p>
+                        <p><strong>Address:</strong> str. Principală 123, Oraș, România</p>
                         <p><strong>Email:</strong> example@example.com</p>
                     </div>
                     </div>
@@ -20,19 +20,19 @@
                 <div class="col-md-6">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Contact Form</h5>
+                        <h5 class="card-title">Formular de contact</h5>
                         <form action = "./../contact/process" method="POST">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" name = "name" required>
+                            <label for="name">Nume</label>
+                            <input type="text" class="form-control" id="name" placeholder="Introdu numele" name = "name" required>
                         </div>
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" class="form-control" id="subject" placeholder="Enter the subject" name = "subject" required>
+                            <label for="subject">Subiect</label>
+                            <input type="text" class="form-control" id="subject" placeholder="Introdu subiectul" name = "subject" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" name="message" required></textarea>
+                            <label for="message">Mesaj</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Introdu mesajul" name="message" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

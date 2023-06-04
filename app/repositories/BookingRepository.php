@@ -54,7 +54,7 @@ final class BookingRepository
         $userId = intval($resultDb['userId']);
         $numOfPersons = intval($resultDb['numOfPersons']);
         $price = floatval($resultDb['price']);
-        $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s',$result['datePurchase']);
+        $datePurchase = DateTime::createFromFormat('Y-m-d H:i:s',$resultDb['datePurchase']);
         
 
         return new Booking(
@@ -88,6 +88,22 @@ final class BookingRepository
         return new Booking(
             $id,$tripId,$userId,$numOfPersons,$price,$datePurchase
         );
+    }
+
+    public static function countByTrip($tripId)
+    {
+        $conn = DatabaseConnection::getConnection();
+        $table = self::getTableName();
+        
+        $stmt = $conn->prepare("SELECT COUNT(*) as numberOf FROM {$table} WHERE tripId = :tripId");
+        $stmt->bindParam(':tripId', $tripId, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
+        
+        $bookingCount = intval($resultDb['numberOf']);
+        
+        return $bookingCount;
     }
 
     public static function readByUser($userId)

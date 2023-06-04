@@ -5,7 +5,6 @@ class BookingController extends Controller
     public function __construct($request)
     {
         parent::__construct($request);
-       
         $this->viewData['locationRepo'] = LocationRepository::readAll();
     }
 
@@ -17,6 +16,7 @@ class BookingController extends Controller
     public function process()
     {
         $formData = $this->request->getData();
+
         $tripId = $formData['trips'];
         $userId = $_SESSION['user'];
         $numOfPersons = $formData['persons'];
@@ -27,22 +27,49 @@ class BookingController extends Controller
             $discount = DiscountRepository::readById($discountId);
 
         $trip = TripRepository::readById($tripId);
+
+        if($trip === null)
+        {
+            $response = new Response("There is no trip with that id",403);
+            $response->send();
+            exit();
+        }
+
         $departureId = $trip->getLocationStartId();
         $arrivalId = $trip->getLocationEndId();
-        $departure = $this->viewData['locationRepo'][$departureId];
-        $arrival = $this->viewData['locationRepo'][$arrivalId];
+
+        $departure = LocationRepository::readById($departureId);
+        $arrival = LocationRepository::readById($arrivalId);
 
         $distance = GeolocationApi::calculateDistance($departure->getGeopos(),$arrival->getGeopos());
         $price = 2.3 * $distance * intval($numOfPersons);
 
-        if(isset($discount))
-            $price -= ($price * $discount->getFactor());
+        if(!empty($discountId))
+        {
+            if(isset($discount))
+              $price -= ($price * $discount->getFactor());
+            else
+            {
+                $response = new Response('Discount does not exist',403);
+                $response->send();
+                return;
+            }
+        }
 
         $checkBooking = BookingRepository::readByUserTrip($userId,$tripId);
 
         if(isset($checkBooking))
         {
             $response = new Response('Booking already exists for this trip!',403);
+            $response->send();
+            exit();
+        }
+
+        $checkAvailable = TripRepository::checkAvailableSeats($tripId,$numOfPersons);
+
+        if($checkAvailable === false)
+        {
+            $response = new Response('Too many seats!',403);
             $response->send();
             exit();
         }
@@ -56,7 +83,7 @@ class BookingController extends Controller
 
         if($checkCreate === false)
         {
-            $response = new Response('Create operation failed!',403);
+            $response = new Response('Create operation failed!',500);
             $response->send();
             exit();
         }
@@ -80,17 +107,17 @@ class BookingController extends Controller
 
         if($tripList === null || empty($tripList))
         {
-            echo "<option value=''>No trips available</option>";
+            echo "<option value=''>Nicio calatorie disponibila</option>";
             return;
         }
 
-        $options = "<option value=''>Select a trip</option>";
+        $options = "<option value=''>Alege o ruta</option>";
         foreach($tripList as $trip)
         {
             //"LocationStart: DateTimeStart -- LocationEnd: DateTimeEnd "
             $tripId = $trip->getId();
-            $departure = $this->viewData['locationRepo'][$trip->getLocationStartId()]->getName();
-            $arrival = $this->viewData['locationRepo'][$trip->getLocationEndId()]->getName();
+            $departure = LocationRepository::readById($trip->getLocationStartId())->getName();
+            $arrival = LocationRepository::readById($trip->getLocationEndId())->getName();
             $dateTimeStart = $trip->getDateTimeStart();
             $dateTimeEnd = $trip->getDateTimeEnd();
             $optionString = "{$departure}: {$dateTimeStart} -- {$arrival}: {$dateTimeEnd}";

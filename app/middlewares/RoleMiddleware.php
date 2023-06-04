@@ -25,8 +25,8 @@ class RoleMiddleware implements Middleware
             return $request;
         } else {
             // Access denied
-            $request = new Response("Access denied",403);
-            return $request;
+            $response = new Response("Access denied",403);
+            return $response;
         }
     }
 }

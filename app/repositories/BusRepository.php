@@ -45,6 +45,25 @@ final class BusRepository
         return $busList ?? null;
     }
 
+    public static function checkNewSeats($busId,$newSeats)
+    {
+        $pdo = DatabaseConnection::getConnection();
+        $sql = "CALL CheckBookingValidityForBus(:busId, :newSeats, @isValidResult)";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':busId', $busId, PDO::PARAM_INT);
+        $stmt->bindParam(':newSeats', $newSeats, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $stmt = $pdo->query("SELECT @isValidResult");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $isValid = $result['@isValidResult'];
+
+        return (bool)$isValid;
+    }
+
     public static function create(&$bus)
     {
         if(!isset($bus))

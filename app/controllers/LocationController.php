@@ -52,6 +52,15 @@ class LocationController extends Controller
             return;
         }
 
+        $countTrips = TripRepository::countByLocation($id);
+
+        if($countTrips > 0)
+        {
+            $response = new Response('Location is associated with one or multiple trips.',500);
+            $response->send();
+            return;
+        }
+
         $checkDeletion = LocationRepository::delete($location);
 
         if($checkDeletion === false)
@@ -92,6 +101,14 @@ class LocationController extends Controller
         $name = $formData['name'];
         $latitude = $formData['latitude'];
         $longitude = $formData['longitude'];
+
+
+        if(LocationRepository::readById($id) === null)
+        {
+            $response = new Response('Location does not exist!',403);
+            $response->send();
+            return;
+        }
 
         $location = Location::loadByParams($id,$name,$longitude,$latitude);
 

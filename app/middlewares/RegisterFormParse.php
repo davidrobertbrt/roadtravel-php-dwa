@@ -9,8 +9,7 @@ class RegisterFormParse implements Middleware{
         if(strcmp($data['password'],$data['confirmPassword']) !== 0)
         {
             $res = new Response("Password is not confirmed",403);
-            $res->send();
-            die();
+            return $res;
         }
 
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]);

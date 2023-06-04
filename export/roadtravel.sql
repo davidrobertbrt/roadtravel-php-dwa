@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 03, 2023 at 11:31 PM
+-- Generation Time: Jun 05, 2023 at 01:17 AM
 -- Server version: 10.6.12-MariaDB-0ubuntu0.22.04.1
 -- PHP Version: 8.1.2-1ubuntu2.11
 
@@ -25,6 +25,44 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`phpmyadmin`@`localhost` PROCEDURE `CheckBookingAvailability` (IN `tripId` INT, IN `numOfSeats` INT, OUT `canBook` INT)  BEGIN
+  DECLARE totalBookedSeats INT;
+  
+  SELECT IFNULL(SUM(bk.numOfPersons), 0)
+  INTO totalBookedSeats
+  FROM bookings AS bk
+  WHERE bk.tripId = tripId;
+  
+  SET canBook = IF(totalBookedSeats + numOfSeats <= (
+      SELECT b.nrSeats
+      FROM buses AS b
+      WHERE b.id = (
+        SELECT busId
+        FROM trips
+        WHERE id = tripId
+      )
+    ), 1, 0);
+END$$
+
+CREATE DEFINER=`simplemvc`@`localhost` PROCEDURE `CheckBookingValidityForBus` (IN `busId` INT, IN `numOfSeats` INT, OUT `isValid` INT)  BEGIN
+  DECLARE totalBookedSeats INT;
+  
+  -- Get the total number of seats booked for the bus
+  SELECT IFNULL(SUM(b.numOfPersons), 0)
+  INTO totalBookedSeats
+  FROM bookings AS b
+  INNER JOIN trips AS t ON b.tripId = t.id
+  WHERE t.busId = busId;
+  
+  -- Check if the total booked seats plus the new number of seats is less than or equal to the bus's total seats
+  IF (totalBookedSeats + numOfSeats) <= (SELECT nrSeats FROM buses WHERE id = busId) THEN
+    SET isValid = 1; -- Bookings are still valid
+  ELSE
+    SET isValid = 0; -- Bookings are not valid
+  END IF;
+  
+END$$
+
 CREATE DEFINER=`phpmyadmin`@`localhost` PROCEDURE `ListTripsWithAvailableSeats` (IN `targetDateTime` DATETIME, IN `startLocationId` INT)  BEGIN
   SELECT t.id, t.busId, t.locationStartId,t.locationEndId,t.dateTimeStart, t.dateTimeEnd
   FROM trips AS t
@@ -54,13 +92,6 @@ CREATE TABLE `bookings` (
   `price` decimal(10,2) NOT NULL,
   `datePurchase` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bookings`
---
-
-INSERT INTO `bookings` (`id`, `tripId`, `userId`, `numOfPersons`, `price`, `datePurchase`) VALUES
-(5, 2, 8, 3, '683.92', '2023-05-31 23:33:28');
 
 -- --------------------------------------------------------
 
@@ -125,6 +156,47 @@ CREATE TABLE `discounts` (
 
 INSERT INTO `discounts` (`id`, `factor`, `used`) VALUES
 (3, '0.8', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hits`
+--
+
+CREATE TABLE `hits` (
+  `id` int(11) NOT NULL,
+  `ip_address` varchar(256) DEFAULT NULL,
+  `timestamp` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hits`
+--
+
+INSERT INTO `hits` (`id`, `ip_address`, `timestamp`) VALUES
+(5, '192.168.0.1', '2023-06-01 09:15:00'),
+(6, '192.168.0.2', '2023-06-01 10:30:00'),
+(7, '192.168.0.3', '2023-06-01 12:45:00'),
+(8, '192.168.0.4', '2023-06-01 14:00:00'),
+(9, '192.168.0.5', '2023-06-01 15:30:00'),
+(10, '192.168.0.6', '2023-06-02 09:45:00'),
+(11, '192.168.0.7', '2023-06-02 11:00:00'),
+(12, '192.168.0.8', '2023-06-02 12:15:00'),
+(13, '192.168.0.9', '2023-06-02 14:30:00'),
+(14, '192.168.0.10', '2023-06-02 16:00:00'),
+(15, '192.168.0.11', '2023-06-03 10:15:00'),
+(16, '192.168.0.12', '2023-06-03 11:30:00'),
+(17, '192.168.0.13', '2023-06-03 13:45:00'),
+(18, '192.168.0.14', '2023-06-03 15:00:00'),
+(19, '192.168.0.15', '2023-06-03 16:30:00'),
+(20, '192.168.0.15', '2023-06-03 18:30:00'),
+(21, '::1', '2023-06-04 19:18:17'),
+(22, '::1', '2023-06-04 21:54:18'),
+(23, '::1', '2023-06-04 23:19:40'),
+(24, '::1', '2023-06-04 23:24:27'),
+(25, '::1', '2023-06-05 00:19:19'),
+(26, '::1', '2023-06-05 00:23:12'),
+(27, '::1', '2023-06-05 00:57:48');
 
 -- --------------------------------------------------------
 
@@ -242,7 +314,7 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `dateOfBirth`, `phoneNumber`
 (3, 'Maria', 'Georgescu', '1987-11-30', '0733998877', 'Piata Victoriei nr. 20, Timisoara', 'maria.georgescu@example.com'),
 (4, 'Alexandru', 'Dumitrescu', '2001-03-05', '0766123456', 'Strada Libertatii nr. 15, Iasi', 'alexandru.dumitrescu@example.com'),
 (5, 'Andreea', 'Stanescu', '1990-12-10', '0755778899', 'Aleea Magnoliei nr. 8, Constanta', 'andreea.stanescu@example.com'),
-(8, 'Doe', 'John', '2002-05-23', '0712345678', 'str. Exemplu nr. 50', 'john.doe@exemplu.ro'),
+(8, 'Johnny', 'Doe', '2000-05-23', '0726779004', 'bulevardul Unirii', 'john.doe@exemplu.ro'),
 (11, 'Mihai', 'Andries', '2000-05-23', '0711111', 'str. Exemplu nr.100', 'mihai.andries@exemplu.ro');
 
 --
@@ -277,6 +349,12 @@ ALTER TABLE `discounts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hits`
+--
+ALTER TABLE `hits`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `locations`
 --
 ALTER TABLE `locations`
@@ -293,7 +371,10 @@ ALTER TABLE `roles`
 -- Indexes for table `trips`
 --
 ALTER TABLE `trips`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `busId` (`busId`),
+  ADD KEY `locationStartId` (`locationStartId`),
+  ADD KEY `locationEndId` (`locationEndId`);
 
 --
 -- Indexes for table `users`
@@ -309,7 +390,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `buses`
@@ -328,6 +409,12 @@ ALTER TABLE `credentials`
 --
 ALTER TABLE `discounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `hits`
+--
+ALTER TABLE `hits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -375,6 +462,14 @@ ALTER TABLE `credentials`
 --
 ALTER TABLE `roles`
   ADD CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `trips`
+--
+ALTER TABLE `trips`
+  ADD CONSTRAINT `trips_ibfk_1` FOREIGN KEY (`busId`) REFERENCES `buses` (`id`),
+  ADD CONSTRAINT `trips_ibfk_2` FOREIGN KEY (`locationStartId`) REFERENCES `locations` (`id`),
+  ADD CONSTRAINT `trips_ibfk_3` FOREIGN KEY (`locationEndId`) REFERENCES `locations` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

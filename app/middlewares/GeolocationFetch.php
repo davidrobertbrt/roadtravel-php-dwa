@@ -15,8 +15,7 @@ final class GeolocationFetch implements Middleware{
             if($geopos === null)
             {
                 $response = new Response("API couldn't find city!",403);
-                $response -> send();
-                die();
+                return $response;
             }
 
             $latitude = $geopos['latitude'];

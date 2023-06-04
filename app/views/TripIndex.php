@@ -5,10 +5,10 @@
     <body>
         <?php require_once('../app/components/navbar.php');?>
         <div class = "container mt-4"> 
-                    <h2>Create a new trip</h2>
+                    <h2>Realizează o nouă călatorie</h2>
                     <form method = "POST" action="create">
                     <div class="form-group">
-                        <label for="departureSelect">Bus select:</label>
+                        <label for="departureSelect">Selectează autobuzul:</label>
                         <select class="form-control" id="busSelect" name = "busId">
                         <!-- import from bus repository.-->
                         <?php
@@ -23,7 +23,7 @@
                     </div>
                     <!-- import from location repository -->
                     <div class="form-group">
-                        <label for="departureSelect">Departure:</label>
+                        <label for="departureSelect">Plecare:</label>
                         <select class="form-control" id="departureSelect" name = "departureId">
                             <?php
                                 foreach($data['locationRepo'] as $location) {
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <!-- import from location repository -->
-                        <label for="arrivalSelect">Arrival:</label>
+                        <label for="arrivalSelect">Sosire:</label>
                         <select class="form-control" id="arrivalSelect" name = "arrivalId">
                             <?php
                                 foreach($data['locationRepo'] as $location) {
@@ -49,26 +49,26 @@
                     </div>
                     <div class="form-group">
                         <!-- no import -->
-                        <label for="dateTimeDeparture">Date/Time of Departure:</label>
+                        <label for="dateTimeDeparture">Dată/Oră Plecare:</label>
                         <input type="datetime-local" class="form-control" id="dateTimeDeparture" name = "dateTimeStart">
                     </div>
                     <div class="form-group">
-                        <label for="dateTimeArrival">Date/Time of Arrival:</label>
+                        <label for="dateTimeArrival">Dată/Oră Sosire:</label>
                         <input type="datetime-local" class="form-control" id="dateTimeArrival" name="dateTimeEnd">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                <h2>Schedule</h2>
+                <h2>Program</h2>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Bus</th>
-                            <th>Departure</th>
-                            <th>Arrival</th>
-                            <th>Date Departure</th>
-                            <th>Date Arrival</th>
-                            <th>Actions</th>
+                            <th>Autobuz</th>
+                            <th>Plecare</th>
+                            <th>Sosire</th>
+                            <th>Data sosirii</th>
+                            <th>Data plecării</th>
+                            <th>Acțiuni</th>
                         </tr>
                     </thead>
                     <?php 

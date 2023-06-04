@@ -75,6 +75,24 @@ final class TripRepository
         return $list ?? null;
     }
 
+    public static function checkAvailableSeats($tripId, $numOfSeats)
+    {
+        $conn = DatabaseConnection::getConnection();
+        $stmt = $conn->prepare("CALL CheckBookingAvailability(:tripId, :numOfSeats, @canBookResult)");
+
+        $stmt->bindParam(':tripId',$tripId,PDO::PARAM_INT);
+        $stmt->bindParam(':numOfSeats',$numOfSeats,PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $stmt = $conn->query("SELECT @canBookResult");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $canBook = $result['@canBookResult'];
+
+        return $canBook == 1;
+    }
+
     public static function readAll() {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
@@ -129,6 +147,37 @@ final class TripRepository
         return ($rowCount === 0);
     }
     
+    public static function countByLocation($locationId)
+    {
+        $conn = DatabaseConnection::getConnection();
+        $table = self::getTableName();
+        
+        $stmt = $conn->prepare("SELECT COUNT(*) as numberOf FROM {$table} WHERE locationStartId = :locationId OR locationEndId = :locationId");
+        $stmt->bindParam(':locationId', $locationId, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
+        
+        $count = intval($resultDb['numberOf']);
+        
+        return $count;
+    }
+
+    public static function countByBus($busId)
+    {
+        $conn = DatabaseConnection::getConnection();
+        $table = self::getTableName();
+        
+        $stmt = $conn->prepare("SELECT COUNT(*) as numberOf FROM {$table} WHERE busId = :busId");
+        $stmt->bindParam(':busId', $busId, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        $resultDb = $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
+        
+        $count = intval($resultDb['numberOf']);
+        
+        return $count;
+    }
 
     public static function create(&$trip) {
 

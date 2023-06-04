@@ -7,9 +7,9 @@
         <div class = "container mt-4">
         <form id="ticket-form" method="POST" action="process">
             <div class="form-group">
-                <label for="location">Departure:</label>
+                <label for="location">Plecare:</label>
                 <select class="form-control" id="location" name="location" required>
-                    <option value="">Select a location</option>
+                    <option value="">Selectează o locație</option>
                 <?php
                     foreach($data['locationRepo'] as $location)
                     {
@@ -23,28 +23,28 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="date">Date of Departure:</label>
+                <label for="date">Data plecării:</label>
                 <input type="date" class="form-control" id="date" name="date" required>
             </div>
             <div class="form-group">
-                <label for="time">Time of Departure:</label>
+                <label for="time">Ora plecării:</label>
                 <input type="time" class="form-control" id="time" name="time" required>
             </div>
             <div class="form-group">
-                <label for="trips">List of Trips:</label>
+                <label for="trips">Listă rute:</label>
                 <select class="form-control" id="trips" name="trips" required>
-                    <option value="">Select a location and date first</option>
+                    <option value="">Selectează o locație și o dată mai întâi</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="persons">Number of Persons:</label>
+                <label for="persons">Număr persoane:</label>
                 <input type="number" class="form-control" id="persons" name="persons" min="1" max="3" required>
             </div>
             <div class="form-group">
-                <label for="discount">Discount code:</label>
+                <label for="discount">Cod de reducere:</label>
                 <input type="text" class="form-control" id="discount" name="discount">
             </div>
-            <button type="submit" class="btn btn-primary">Book Ticket</button>
+            <button type="submit" class="btn btn-primary">Planifică</button>
         </form>
     </div>
     <?php require_once('../app/components/footer.php');?>
@@ -70,7 +70,7 @@
                         }
                     });
                 } else {
-                    $('#trips').html('<option value="">Select a location and date first</option>'); // Reset the trips select dropdown
+                    $('#trips').html('<option value="">Selectează o locație și o dată mai întâi</option>'); // Reset the trips select dropdown
                 }
             });
         });

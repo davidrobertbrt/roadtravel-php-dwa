@@ -16,8 +16,8 @@
                         ?>
                         <div class="form-group">
                             <input type="hidden" name="id" value="<?php echo $id; ?>">
-                            <label for="nrSeats">Number of seats:</label>
-                            <input type="text" class="form-control" id="nrSeats" placeholder="Enter number of seats" name="nrSeats" value="<?php echo $nrSeats; ?>">
+                            <label for="nrSeats">Număr locuri:</label>
+                            <input type="text" class="form-control" id="nrSeats" placeholder="Introdu nr locuri" name="nrSeats" value="<?php echo $nrSeats; ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
