@@ -24,8 +24,10 @@ final class AuthMiddleware implements Middleware
 
         if(!isset($_SESSION['user']))
         {
+            $urlPath = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login/index';
             //User is not logged in, returning response
-            $response = new Response('Unauthorized, please log in.',401);
+            $response = new Response('',200);
+            $response->redirectTo($urlPath);
             return $response;
         }
 
