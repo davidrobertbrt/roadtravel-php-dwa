@@ -120,7 +120,6 @@ final class SessionController extends Controller{
             exit();
         }
 
-        var_dump($_SESSION['reset']);
 
         $password = password_hash($formData['password'], PASSWORD_BCRYPT, ['cost' => 12]);
 
