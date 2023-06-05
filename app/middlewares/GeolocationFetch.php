@@ -7,6 +7,7 @@ final class GeolocationFetch implements Middleware{
         $formData = $req->getData();
         $latitude = empty($formData['latitude']) ? null : $formData['latitude'];
         $longitude = empty($formData['longitude']) ? null : $formData['longitude'];
+        $name = $formData['name'];
 
         if($latitude === null || $longitude === null)
         {
