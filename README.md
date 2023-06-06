@@ -2,6 +2,26 @@
 
 For english variant please go to `eng_README.md` (coming soon)
 
+## Cuprins
+
+- [roadtravel-php-dwa](#roadtravel-php-dwa)
+  * [Demo](#demo)
+      - [Cerințe](#cerin-e)
+      - [Instalare](#instalare)
+  * [Prezentare generala](#prezentare-generala)
+  * [Componente generale](#componente-generale)
+  * [Inițializarea aplicației](#ini-ializarea-aplica-iei)
+  * [Clasa `Request`](#clasa--request-)
+  * [Clasa "`Response`"](#clasa---response--)
+  * [Implementarea unui middleware](#implementarea-unui-middleware)
+  * [Implementarea unui controller](#implementarea-unui-controller)
+  * [Implementarea sistemului de rutare](#implementarea-sistemului-de-rutare)
+  * [Parsarea fiecărui formular](#parsarea-fiec-rui-formular)
+  * [Integrarea de informații](#integrarea-de-informa-ii)
+  * [Categorii de utilizatori](#categorii-de-utilizatori)
+  * [Statistica site-ului](#statistica-site-ului)
+
+
 ## Demo
 
 A. Public host [Link către site](https://vanadium.idigit.ro/public/login/index)
