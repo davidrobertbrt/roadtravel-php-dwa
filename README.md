@@ -19,8 +19,6 @@ B. Local
 
 #### Instalare
 
-1. Make sure that the `Apache2` installation has `.htaccess` functionality is enabled.
-
 1. Fiți sigur că instalarea `Apache2` are funcționalitatea `mod_rewrite` activată (`.htaccess`)
 
 2. Fiți siguri că **PHP Short Tags** sunt activate în `php.ini`
