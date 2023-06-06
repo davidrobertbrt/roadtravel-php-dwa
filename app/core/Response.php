@@ -30,7 +30,8 @@ final class Response{
         
         http_response_code($this->statusCode);
 
-        $previousPage = $this->constructGoBack();
+        if($this->statusCode !== 404)
+            $previousPage = $this->constructGoBack();
 
         if(isset($this->content))
         {
