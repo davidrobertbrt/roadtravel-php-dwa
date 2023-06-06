@@ -37,6 +37,9 @@ final class FormParse implements Middleware
             $inputType = $inputRule['type'];
             $isOpt = $inputRule['opt'];
 
+            if($isOpt && empty($value)) {
+                continue; // Skip processing optional fields with empty values
+            }
 
             if(!empty($value))
             {
