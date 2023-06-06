@@ -13,6 +13,13 @@ class BusController extends Controller
         $formData = $this->request->getData();
         $nrSeats = $formData['nrSeats'];
 
+        if($nrSeats <= 0)
+        {
+            $response = new Response("You can't have negative or zero seats!",403);
+            $response->send();
+            exit();
+        }
+
         $bus = new Bus(null,$nrSeats);
         $checkInsert = BusRepository::create($bus);
         if($checkInsert === false)
@@ -76,6 +83,13 @@ class BusController extends Controller
         $formData = $this->request->getData();
         $id = $formData['id'];
         $nrSeats = $formData['nrSeats'];
+
+        if($nrSeats <= 0)
+        {
+            $response = new Response("You can't have negative or zero seats!",403);
+            $response->send();
+            exit();
+        }
 
         if(BusRepository::readById($id) === null)
         {
