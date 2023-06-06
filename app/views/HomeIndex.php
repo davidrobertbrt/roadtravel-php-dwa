@@ -58,7 +58,7 @@
                     <input type="text" class="form-control" id="cityInput" placeholder="Introdu orașul" required name="city">
                 </div>
                 <div class="form-group">
-                    <p>Datele sunt preluate după OpenMeteo folosind API-ul lor</p>
+                    <p>Datele sunt preluate folosind OpenMeteo API</p>
                 </div>
                 <button type="submit" class="btn btn-primary">Preia vremea</button>
             </form>
