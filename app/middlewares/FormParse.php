@@ -119,7 +119,7 @@ final class FormParse implements Middleware
             case 'phone':
                 return strlen($value) <= 12;
             case 'range':
-                return filter_var($value, FILTER_VALIDATE_FLOAT);
+                return gettype($value) === 'integer';
             case 'checkbox':
                 return empty($value);
                 break;

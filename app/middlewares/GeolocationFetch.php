@@ -9,7 +9,7 @@ final class GeolocationFetch implements Middleware{
         $longitude = empty($formData['longitude']) ? null : $formData['longitude'];
         $name = $formData['name'];
 
-        if($latitude === null || $longitude === null)
+        if($latitude === null && $longitude === null)
         {
             $geopos = GeolocationApi::getGeopos($name);
            
@@ -21,6 +21,14 @@ final class GeolocationFetch implements Middleware{
 
             $latitude = $geopos['latitude'];
             $longitude = $geopos['longitude'];
+        }
+        else
+        {
+            if($latitude === null || $longitude === null)
+            {
+                $response = new Response("One of the latitude and longtitude fields are not filled!",403);
+                return $response;
+            }
         }
 
         $formData['latitude'] = $latitude;
