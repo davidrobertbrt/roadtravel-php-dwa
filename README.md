@@ -10,7 +10,7 @@ A. Public host [Link către site](https://vanadium.idigit.ro/public/login/index)
 
 B. Local
 
-#### Requirements
+#### Cerințe
 
 - `PHP 7` sau o versiune mai nouă
 - `Apache/2.4.52` sau o versiune mai nouă
