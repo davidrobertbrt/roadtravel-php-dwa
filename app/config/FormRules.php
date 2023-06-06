@@ -11,7 +11,7 @@ return array(
         'emailAddress'=>array('type'=>'email','opt'=>false),
         'password'=>array('type'=>'password','opt'=>false),
         'confirmPassword'=>array('type'=>'password','opt'=>false),
-        'dateOfBirth'=>array('type'=>'datetime','opt'=>false),
+        'dateOfBirth'=>array('type'=>'date','opt'=>false),
         'phoneNumber'=>array('type'=>'phone','opt'=>false),
         'address'=>array('type'=>'text','opt'=>false)
     ),
