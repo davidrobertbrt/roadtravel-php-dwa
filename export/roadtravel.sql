@@ -55,7 +55,7 @@ CREATE DEFINER=`simplemvc`@`localhost` PROCEDURE `CheckBookingValidityForBus` (I
   WHERE t.busId = busId;
   
   -- Check if the total booked seats plus the new number of seats is less than or equal to the bus's total seats
-  IF (totalBookedSeats + numOfSeats) <= (SELECT nrSeats FROM buses WHERE id = busId) THEN
+  IF totalBookedSeats = 0 OR (totalBookedSeats + numOfSeats) <= (SELECT nrSeats FROM buses WHERE id = busId) THEN
     SET isValid = 1; -- Bookings are still valid
   ELSE
     SET isValid = 0; -- Bookings are not valid
