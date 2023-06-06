@@ -66,7 +66,7 @@ class BoothController extends Controller
             return;
         }
 
-        $response = new Response('Deleted booking successfully!');
+        $response = new Response('Deleted booking successfully!',200);
         $response->send();
     }
 }
