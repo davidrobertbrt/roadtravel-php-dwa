@@ -129,8 +129,6 @@ final class TripRepository
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
     
-        $dateStartObj = new DateTime($dateStart);
-        $dateEndObj = new DateTime($dateEnd);
     
         if (isset($tripId)) {
             $stmt = $conn->prepare("SELECT COUNT(*) FROM {$table} WHERE ((dateTimeStart <= :dateEnd AND dateTimeEnd >= :dateStart) OR (dateTimeStart <= :dateStart AND dateTimeEnd >= :dateEnd)) AND (busId = :busId) AND (id != :tripId)");
@@ -139,8 +137,8 @@ final class TripRepository
             $stmt = $conn->prepare("SELECT COUNT(*) FROM {$table} WHERE ((dateTimeStart <= :dateEnd AND dateTimeEnd >= :dateStart) OR (dateTimeStart <= :dateStart AND dateTimeEnd >= :dateEnd)) AND (busId = :busId)");
         }
     
-        $stmt->bindValue(':dateStart', $dateStartObj->format('Y-m-d H:i:s'));
-        $stmt->bindValue(':dateEnd', $dateEndObj->format('Y-m-d H:i:s'));
+        $stmt->bindValue(':dateStart', $dateStart);
+        $stmt->bindValue(':dateEnd', $dateEnd);
         $stmt->bindValue(':busId', $busId);
         $stmt->execute();
     
