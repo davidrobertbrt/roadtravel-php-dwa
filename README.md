@@ -1,6 +1,41 @@
 # roadtravel-php-dwa
 
-For english variant please go to `eng_README.md`
+For english variant please go to `eng_README.md` (coming soon)
+
+## Demo
+
+A. Public host [Link către site](https://vanadium.idigit.ro/public/login/index)
+
+**Datele de conectare sunt ascunse pentru a preveni spam public.**
+
+B. Local
+
+#### Requirements
+
+- `PHP 7` sau o versiune mai nouă
+- `Apache/2.4.52` sau o versiune mai nouă
+- MySQL Database Server `Ver 15.1 Distrib 10.6.12-MariaDB` sau o versiune mai nouă
+- _Optional_: `PHPMyAdmin`
+
+#### Instalare
+
+1. Make sure that the `Apache2` installation has `.htaccess` functionality is enabled.
+
+1. Fiți sigur că instalarea `Apache2` are funcționalitatea `mod_rewrite` activată (`.htaccess`)
+
+2. Fiți siguri că **PHP Short Tags** sunt activate în `php.ini`
+
+3. Importați fișierul `roadtravel.sql` aflat în directorul `export`.
+
+4. Fiți siguri că `DbConfig.php` include informațiile corecte pentru a accesa baza de date (_IP,Name of database, Username to access the database and password_)
+
+5. Clonați repository-ul către directorul specific Apache `httpd`
+- Pentru XAMPP: `.htdocs`
+- Pentru LAMP stack instalat pe o distribuție Ubuntu : `www`
+
+6. Configurați server-ul ca rădăcina site-ului să fie directorul `public` 
+
+7. Folosiți aplicația accesând `localhost`
 
 ## Prezentare generala
 
