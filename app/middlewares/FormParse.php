@@ -114,7 +114,7 @@ final class FormParse implements Middleware
             case 'password':
                 return strlen($value) >= 8;
             case 'datetime':
-                return DateTime::createFromFormat('Y-m-d H:i:s', $value . ' 00:00:00') !== false;
+                return DateTime::createFromFormat('Y-m-d H:i:s', $value) !== false;
             case 'integer':
                 return gettype($value) === 'integer';
             case 'text':
@@ -161,9 +161,9 @@ final class FormParse implements Middleware
 
     private function sanitizeDatetime($datetime)
     {
-        $dateTimeObj = DateTime::createFromFormat('Y-m-d H:i:s', $datetime . ' 00:00:00'); 
+        $dateTimeObj = DateTime::createFromFormat('Y-m-d\TH:i', $datetime); 
 
-        $formattedDatetime = $dateTimeObj->format('Y-m-d'); 
+        $formattedDatetime = $dateTimeObj->format('Y-m-d H:i:s'); 
         return $formattedDatetime;
     }
 

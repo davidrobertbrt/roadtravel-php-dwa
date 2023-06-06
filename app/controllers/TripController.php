@@ -43,8 +43,8 @@ class TripController extends Controller
         $busId = $formData['busId'];
         $departureId = $formData['departureId'];
         $arrivalId = $formData['arrivalId'];
-        $dateTimeStart = $formData['dateTimeStart'];
-        $dateTimeEnd = $formData['dateTimeEnd'];
+        $dateTimeStart = $formData['dateTimeStart']->format('Y-m-d H:i:s');
+        $dateTimeEnd = $formData['dateTimeEnd']->format('Y-m-d H:i:s');
 
         $trip = new Trip(null,$busId,$departureId,$arrivalId,$dateTimeStart,$dateTimeEnd);            
 
