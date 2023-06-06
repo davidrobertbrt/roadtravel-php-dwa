@@ -144,8 +144,6 @@ final class TripRepository
     
         $rowCount = $stmt->fetchColumn();
         
-        var_dump($rowCount);
-
         // the most stupid bug ever found in PHP 7.
         return (intval($rowCount) === 0);
     }
