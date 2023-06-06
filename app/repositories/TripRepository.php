@@ -124,28 +124,33 @@ final class TripRepository
     // OR
     // $searchTripStart >= $newDateEnd
     // if we do this, we should be good, we should not have any count of them.
-    public static function canInsertTrip($tripId,$busId, $dateStart, $dateEnd)
+    public static function canInsertTrip($tripId, $busId, $dateStart, $dateEnd)
     {
         $conn = DatabaseConnection::getConnection();
         $table = self::getTableName();
     
-        if(isset($tripId))
-        {
+        $dateStartObj = new DateTime($dateStart);
+        $dateEndObj = new DateTime($dateEnd);
+    
+        if (isset($tripId)) {
             $stmt = $conn->prepare("SELECT COUNT(*) FROM {$table} WHERE ((dateTimeStart <= :dateEnd AND dateTimeEnd >= :dateStart) OR (dateTimeStart <= :dateStart AND dateTimeEnd >= :dateEnd)) AND (busId = :busId) AND (id != :tripId)");
-            $stmt->bindParam(':tripId',$tripId);
-        }
-        else
+            $stmt->bindParam(':tripId', $tripId);
+        } else {
             $stmt = $conn->prepare("SELECT COUNT(*) FROM {$table} WHERE ((dateTimeStart <= :dateEnd AND dateTimeEnd >= :dateStart) OR (dateTimeStart <= :dateStart AND dateTimeEnd >= :dateEnd)) AND (busId = :busId)");
-
-        $stmt->bindParam(':dateStart', $dateStart);
-        $stmt->bindParam(':dateEnd', $dateEnd);
-        $stmt->bindParam(':busId', $busId);
+        }
+    
+        $stmt->bindValue(':dateStart', $dateStartObj->format('Y-m-d H:i:s'));
+        $stmt->bindValue(':dateEnd', $dateEndObj->format('Y-m-d H:i:s'));
+        $stmt->bindValue(':busId', $busId);
         $stmt->execute();
     
         $rowCount = $stmt->fetchColumn();
-    
+        
+        var_dump($rowCount);
+
         return ($rowCount === 0);
     }
+    
     
     public static function countByLocation($locationId)
     {
