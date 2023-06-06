@@ -25,12 +25,21 @@ final class Response{
         }
 
         //HTTP OK.
-        $this->statusCode ??= 200;
+        if(!isset($this->statusCode))
+            $this->statusCode = 200;
+        
         http_response_code($this->statusCode);
 
-        if(isset($this->content))
-            echo $this->content;
+        $previousPage = $_SERVER['HTTP_REFERER'];
 
-        exit();
+
+        if(isset($this->content))
+        {
+            if(isset($previousPage))
+                $this->content = $this->content . '<a href="'.$previousPage.'">Go Back</a>';
+            
+            echo $this->content;
+        }
+
     }
 }
