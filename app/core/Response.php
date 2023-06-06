@@ -30,8 +30,8 @@ final class Response{
         
         http_response_code($this->statusCode);
 
-        $previousPage = $_SERVER['HTTP_REFERER'];
-
+        if($this->statusCode !== 404)
+            $previousPage = $this->constructGoBack();
 
         if(isset($this->content))
         {
@@ -41,5 +41,24 @@ final class Response{
             echo $this->content;
         }
 
+    }
+
+    private function constructGoBack()
+    {
+        $url = $_SERVER['REQUEST_URI'];
+
+        $segments = explode('/', trim($url, '/'));
+
+        if(count($segments) < 2)
+            return null;
+
+        array_pop($segments);
+        
+        $segments[] = 'index';
+        
+        // Reconstruct the URL
+        $newURL = '/' . implode('/', $segments);
+
+        return $newURL;
     }
 }
