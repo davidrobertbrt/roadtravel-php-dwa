@@ -1,2 +1,4 @@
 # roadtravel-php-dwa
-A project made for the course "Developing web applications"
+
+For english variant please go to `eng_README.md`
+

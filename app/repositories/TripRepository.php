@@ -146,7 +146,6 @@ final class TripRepository
     
         $rowCount = $stmt->fetchColumn();
         
-        var_dump($rowCount);
 
         return ($rowCount === 0);
     }
