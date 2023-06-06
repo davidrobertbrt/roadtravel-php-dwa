@@ -116,13 +116,13 @@ final class FormParse implements Middleware
             case 'datetime':
                 return DateTime::createFromFormat('Y-m-d H:i:s', $value . ' 00:00:00') !== false;
             case 'integer':
-                return filter_var($value, FILTER_VALIDATE_INT) !== false;
+                return gettype($value) === 'integer';
             case 'text':
                 return !empty($value);
             case 'phone':
                 return strlen($value) <= 12;
             case 'range':
-                return gettype($value) === 'integer';
+                return gettype($value) === 'double';
             case 'checkbox':
                 return empty($value);
                 break;
