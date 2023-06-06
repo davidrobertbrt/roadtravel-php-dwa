@@ -26,6 +26,7 @@ class RoleMiddleware implements Middleware
         } else {
             // Access denied
             $response = new Response("Access denied",403);
+            $_SESSION['prev_url'] = ProtocolConfig::getProtocol() . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
             return $response;
         }
     }

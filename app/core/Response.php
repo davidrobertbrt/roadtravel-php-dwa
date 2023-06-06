@@ -30,8 +30,7 @@ final class Response{
         
         http_response_code($this->statusCode);
 
-        if($this->statusCode !== 404)
-            $previousPage = $this->constructGoBack();
+        $previousPage = $this->constructGoBack();
 
         if(isset($this->content))
         {
@@ -45,20 +44,9 @@ final class Response{
 
     private function constructGoBack()
     {
-        $url = $_SERVER['REQUEST_URI'];
-
-        $segments = explode('/', trim($url, '/'));
-
-        if(count($segments) < 2)
-            return null;
-
-        array_pop($segments);
-        
-        $segments[] = 'index';
-        
-        // Reconstruct the URL
-        $newURL = '/' . implode('/', $segments);
-
-        return $newURL;
+        // this is going to be built in the middleware i think
+        if(isset($_SESSION['prev_url']))
+            return $_SESSION['prev_url'];
     }
+
 }

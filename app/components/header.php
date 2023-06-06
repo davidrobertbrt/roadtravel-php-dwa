@@ -8,5 +8,5 @@
 <script type="text/javascript" src="/roadtravel/public/js/bootstrap.min.js"></script>
 
 <?php
-	$urlPath = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
+	$urlPath = ProtocolConfig::getProtocol() . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
 ?>
