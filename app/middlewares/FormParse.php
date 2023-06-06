@@ -37,6 +37,9 @@ final class FormParse implements Middleware
             $inputType = $inputRule['type'];
             $isOpt = $inputRule['opt'];
 
+            if($isOpt && empty($value)) {
+                continue; // Skip processing optional fields with empty values
+            }
 
             if(!empty($value))
             {
@@ -111,17 +114,17 @@ final class FormParse implements Middleware
             case 'password':
                 return strlen($value) >= 8;
             case 'datetime':
-                return DateTime::createFromFormat('Y-m-d H:i:s', $value . ' 00:00:00') !== false;
+                return DateTime::createFromFormat('Y-m-d H:i:s', $value) !== false;
             case 'integer':
-                return filter_var($value, FILTER_VALIDATE_INT) !== false;
+                return gettype($value) === 'integer';
             case 'text':
                 return !empty($value);
             case 'phone':
                 return strlen($value) <= 12;
             case 'range':
-                return gettype($value) === 'integer';
+                return gettype($value) === 'double';
             case 'checkbox':
-                return empty($value);
+                return gettype($value) === 'boolean';
                 break;
             case 'date':
                 return DateTime::createFromFormat('Y-m-d', $value) !== false;
@@ -158,9 +161,9 @@ final class FormParse implements Middleware
 
     private function sanitizeDatetime($datetime)
     {
-        $dateTimeObj = DateTime::createFromFormat('Y-m-d H:i:s', $datetime . ' 00:00:00'); 
+        $dateTimeObj = DateTime::createFromFormat('Y-m-d\TH:i', $datetime); 
 
-        $formattedDatetime = $dateTimeObj->format('Y-m-d'); 
+        $formattedDatetime = $dateTimeObj->format('Y-m-d H:i:s'); 
         return $formattedDatetime;
     }
 
@@ -180,7 +183,7 @@ final class FormParse implements Middleware
 
     private function sanitizeCheckbox($input)
     {
-        return isset($input);
+        return $input === 'on';
     }
 
     private function sanitizeDate($date)

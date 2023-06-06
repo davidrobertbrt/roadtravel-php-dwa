@@ -18,6 +18,13 @@ class DiscountController extends Controller
         $formData = $this->request->getData();
         $factor = $formData['discountFactor'];
 
+        if($factor > 1 || $factor < 0)
+        {
+            $res = new Response('Factor should be between 0 and 1!',403);
+            $res->send();
+            exit();
+        }
+
         $discount = new Discount(null,$factor,0);
 
         $checkInsert = DiscountRepository::create($discount);
@@ -37,7 +44,6 @@ class DiscountController extends Controller
     {
         $formData = $this->request->getData();
         $id = $formData['id'];
-
 
         $discount = DiscountRepository::readById($id);
 
@@ -87,6 +93,15 @@ class DiscountController extends Controller
         $factor = $formData['factor'];
         $used = $formData['used'];
 
+        if($factor > 1 || $factor < 0)
+        {
+            $res = new Response('Factor should be between 0 and 1!',403);
+            $res->send();
+            exit();
+        }
+
+        $used = intval($used);
+        
         if(empty($this->viewData['discountRepo'][$id]))
         {
             $response = new Response("Discount could not be read",500);

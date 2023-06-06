@@ -8,8 +8,9 @@ final class TripFormParse implements Middleware
         $busId = $formData['busId'];
         $departureId = $formData['departureId'];
         $arrivalId = $formData['arrivalId'];
-        $dateTimeStart = DateTime::createFromFormat('Y-m-d\TH:i',$formData['dateTimeStart']);
-        $dateTimeEnd = DateTime::createFromFormat('Y-m-d\TH:i',$formData['dateTimeEnd']);
+        $dateTimeStart = DateTime::createFromFormat('Y-m-d H:i:s',$formData['dateTimeStart']);
+        $dateTimeEnd = DateTime::createFromFormat('Y-m-d H:i:s',$formData['dateTimeEnd']);
+
 
         if($departureId === $arrivalId)
         {
@@ -17,7 +18,7 @@ final class TripFormParse implements Middleware
             return $res;
         }
 
-        if($dateTimeStart === $dateTimeEnd)
+        if($dateTimeStart->format('Y-m-d H:i:s') === $dateTimeEnd->format('Y-m-d H:i:s'))
         {
             $res = new Response("The arrival and departure are the same!",403);
             return $res;
