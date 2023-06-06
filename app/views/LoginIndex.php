@@ -12,7 +12,7 @@
                     Conectare
                 </div>
                 <div class="card-body">
-                    <form method = "POST" action = "process">
+                    <form method = "POST" action = "../process">
                     <div class="form-group">
                         <label for="email">E-mail</label>
                         <input type="email" class="form-control" name="email" id="email" placeholder="Introdu email">
