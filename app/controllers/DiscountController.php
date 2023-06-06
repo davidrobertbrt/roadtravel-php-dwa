@@ -99,8 +99,9 @@ class DiscountController extends Controller
             $res->send();
             exit();
         }
-        
 
+        $used = intval($used);
+        
         if(empty($this->viewData['discountRepo'][$id]))
         {
             $response = new Response("Discount could not be read",500);

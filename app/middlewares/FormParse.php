@@ -124,7 +124,7 @@ final class FormParse implements Middleware
             case 'range':
                 return gettype($value) === 'double';
             case 'checkbox':
-                return empty($value);
+                return gettype($value) === 'boolean';
                 break;
             case 'date':
                 return DateTime::createFromFormat('Y-m-d', $value) !== false;
@@ -183,7 +183,7 @@ final class FormParse implements Middleware
 
     private function sanitizeCheckbox($input)
     {
-        return isset($input);
+        return $input === 'on';
     }
 
     private function sanitizeDate($date)
