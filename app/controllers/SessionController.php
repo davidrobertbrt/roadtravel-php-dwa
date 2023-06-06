@@ -192,6 +192,7 @@ final class SessionController extends Controller{
     public function register()
     {
         $formData = $this->request->getData();
+        $_SESSION['prev_url'] = ProtocolConfig::getProtocol() . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login/index/';
 
         $user = UserRepository::readByEmail($formData['emailAddress']);
 

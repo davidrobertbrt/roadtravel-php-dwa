@@ -34,6 +34,8 @@ require_once 'repositories/StatisticsRepository.php';
 
 require_once 'vendor/fpdf/fpdf.php';
 
+require_once 'config/ProtocolConfig.php';
+
 // debug statements
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
